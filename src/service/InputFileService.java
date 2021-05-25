@@ -38,6 +38,7 @@ public class InputFileService {
         jsonField = (JSONObject) new JSONParser().parse(new FileReader(absolutePath));
 
         jsonArray = (JSONArray) jsonField.get("estados");
+
         List<String> states = parseArrayField(jsonArray);
 
         String alphabet = parseAlphabet();
@@ -51,6 +52,7 @@ public class InputFileService {
         String initialSymbol = parseInitialSymbol();
 
         jsonArray = (JSONArray) jsonField.get("estadosFinais");
+
         List<String> finalStates = parseArrayField(jsonArray);
 
         return new Automaton(states, alphabet, AFNDRules, initialState, finalStates,stackAlphabet,initialSymbol);
@@ -70,6 +72,7 @@ public class InputFileService {
 
     private List<Rule> parseRules() {
         //lista com as regras
+
         List<Rule> AFNDRules = new ArrayList<>();
 
         jsonArray = (JSONArray) jsonField.get("regras");
@@ -86,9 +89,7 @@ public class InputFileService {
 
             char StackTop = (char) jsonRule.get("topo");
 
-            char StackSymbol = (char) jsonRule.get("empilhar");
-
-
+            String StackSymbol = (String) jsonRule.get("empilha");
 
             List<String> targetStates = parseArrayField(targets);
 

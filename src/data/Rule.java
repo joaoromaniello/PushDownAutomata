@@ -7,13 +7,14 @@ public class Rule {
     private final String sourceState;
     private final char symbol;
     private final List<String> targetState;
-    private final char StackSymbol;
+    private final String StackSymbols;
     private final char StackTop;
-    public Rule(String sourceState, char symbol, List<String> targetState,char StackS,char StackT) {
+
+    public Rule(String sourceState, char symbol, List<String> targetState,String StackS,char StackT) {
         this.sourceState = sourceState;
         this.symbol = symbol;
         this.targetState = targetState;
-        this.StackSymbol = StackS; // O que sera empilhado caso o Topo da pilha for o mesmo que o StackTop
+        this.StackSymbols = StackS; // O que sera empilhado caso o Topo da pilha for o mesmo que o StackTop
         this.StackTop = StackT;
 
     }
@@ -46,6 +47,6 @@ public class Rule {
 
     @Override
     public String toString() {
-        return "("+ sourceState + "," + symbol + "," + StackSymbol + ")" + " \u2192 " + targetState ;
+        return "("+ sourceState + "," + symbol + "," + StackSymbols + ")" + " \u2192 " + targetState ;
     }
 }
