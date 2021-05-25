@@ -73,7 +73,7 @@ public class InputFileService {
     private List<Rule> parseRules() {
         //lista com as regras
 
-        List<Rule> AFNDRules = new ArrayList<>();
+        List<Rule> PDARules = new ArrayList<>();
 
         jsonArray = (JSONArray) jsonField.get("regras");
 
@@ -87,15 +87,17 @@ public class InputFileService {
 
             JSONArray targets = (JSONArray) jsonRule.get("estadosDestino");
 
-            char StackTop = (char) jsonRule.get("topo");
-
             String StackSymbol = (String) jsonRule.get("empilha");
+
+            String StackTop = (String) jsonRule.get("topo");
+
+
 
             List<String> targetStates = parseArrayField(targets);
 
-            AFNDRules.add(new Rule(sourceState, symbol.charAt(0), targetStates,StackSymbol,StackTop));
+            PDARules.add(new Rule(sourceState, symbol.charAt(0), targetStates,StackSymbol,StackTop));
         }
-        return AFNDRules;
+        return PDARules;
     }
 
     private String parseInitialState() {

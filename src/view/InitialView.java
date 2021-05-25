@@ -58,8 +58,9 @@ public class InitialView extends JFrame implements ActionListener {
         if (event.getSource() == openFileButton) {
             try {
                 Automaton automaton = inputFileService.parseAutomaton();
-                //automatonService.validateAutomaton(automaton);
-                //new PDAStepView(automaton);
+                //System.out.println(automaton.toString());
+                //PDAService.validateAutomaton(automaton);           <<=== tirar esse coment após adicionar o PDAService
+                //new PDAStepView(automaton);                              <<=== tirar esse coment
                 dispose();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

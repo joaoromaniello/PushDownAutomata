@@ -8,9 +8,9 @@ public class Rule {
     private final char symbol;
     private final List<String> targetState;
     private final String StackSymbols;
-    private final char StackTop;
+    private final String StackTop;
 
-    public Rule(String sourceState, char symbol, List<String> targetState,String StackS,char StackT) {
+    public Rule(String sourceState, char symbol, List<String> targetState,String StackS,String StackT) {
         this.sourceState = sourceState;
         this.symbol = symbol;
         this.targetState = targetState;
@@ -47,6 +47,6 @@ public class Rule {
 
     @Override
     public String toString() {
-        return "("+ sourceState + "," + symbol + "," + StackSymbols + ")" + " \u2192 " + targetState ;
+        return "("+ sourceState + "," + symbol + "," + StackTop + ")" + " \u2192 " + "(" + targetState + "," + StackSymbols +")" ;
     }
 }

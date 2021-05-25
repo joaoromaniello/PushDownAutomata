@@ -63,6 +63,7 @@ public class Automaton{
         }
         outputRules.append("]");
 
+
         StringBuilder outputAlphabet = new StringBuilder();
         outputAlphabet.append("[");
         for(int i = 0; i < alphabet.length(); i++) {
@@ -73,10 +74,21 @@ public class Automaton{
         }
         outputAlphabet.append("]");
 
+        StringBuilder outputStackAlphabet = new StringBuilder();
+        for(int i = 0; i < stackAlphabet.length(); i++) {
+            outputStackAlphabet.append(stackAlphabet.charAt(i));
+            if (i != stackAlphabet.length()-1) {
+                outputStackAlphabet.append(", ");
+            }
+        }
+
+
         return "Q: " + states + ",\n" +
                 "\u03A3: " + outputAlphabet + ",\n" +
+                "\u0393: ["  + outputStackAlphabet + "],\n" +
                 "\u03B4: " + outputRules + ",\n" +
                 "q\u2080: " + initialState + ",\n" +
+
                 "F: " + finalStates + "\n";
     }
 
