@@ -43,7 +43,6 @@ public class InputFileService {
 
         String alphabet = parseAlphabet();
 
-        List<Rule> AFNDRules = parseRules();
 
         String stackAlphabet = parseStackAlphabet();
 
@@ -51,16 +50,67 @@ public class InputFileService {
 
         String initialSymbol = parseInitialSymbol();
 
+        List<Rule> AFNDRules = parseRules();
+
+
         jsonArray = (JSONArray) jsonField.get("estadosFinais");
 
         List<String> finalStates = parseArrayField(jsonArray);
 
-        return new Automaton(states, alphabet, AFNDRules, initialState, finalStates,stackAlphabet,initialSymbol);
+        Automaton Automato = new Automaton(states,alphabet, AFNDRules, initialState, finalStates,stackAlphabet,initialSymbol);
+
+        pdaTransformation(Automato);
+
+        return Automato;
+    }
+
+    //TODO
+    private Automaton pdaTransformation(Automaton a){
+
+
+        int aux = -1;  //Variavel para saber qual o tipo do automato o qual estamos fazendo o processamento
+
+        if(a.getFinalStates().size() == 0)
+             aux = 0; //Automato por pilha vazia
+
+        else
+            aux = 1;  //Automato por estado final
+
+
+        //caso o automato seja um automato por estado final
+        if(aux == 1){
+
+         ConvertionService b = new ConvertionService(a);
+
+         Automaton autB = b.finalToEmpty();
+
+            return autB;
+
+        }
+
+        //caso o automato seja um automato por pilha vazia
+        else if(aux == 0){
+
+            ConvertionService b = new ConvertionService(a);
+
+            Automaton autB = b.emptyToFinal();
+
+            return autB;
+
+        }
+
+
+      else
+          return a;
+
+
     }
 
     private List<String> parseArrayField(JSONArray jsonArray) {
+
         List<String> array = new ArrayList<>();
         for (Object o : jsonArray) {
+
             array.add((String) o);
         }
         return array;
@@ -85,17 +135,15 @@ public class InputFileService {
 
             String symbol = (String) jsonRule.get("simbolo");
 
-            JSONArray targets = (JSONArray) jsonRule.get("estadosDestino");
+            String targets = (String) jsonRule.get("estadosDestino");
 
             String StackSymbol = (String) jsonRule.get("empilha");
 
             String StackTop = (String) jsonRule.get("topo");
 
+            String targetState = (String) jsonRule.get("estadosDestino");
 
-
-            List<String> targetStates = parseArrayField(targets);
-
-            PDARules.add(new Rule(sourceState, symbol.charAt(0), targetStates,StackSymbol,StackTop));
+            PDARules.add(new Rule(sourceState, symbol.charAt(0), targetState,StackSymbol,StackTop));
         }
         return PDARules;
     }

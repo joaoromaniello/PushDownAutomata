@@ -20,7 +20,7 @@
       "estadoPartida": "q0",
       "simbolo": "0",
       "topo": "1",
-      "estadosDestino":"q0",
+      "estadosDestino": "q0",
       "empilha": "01"
     }, {
       "estadoPartida": "q0",
@@ -70,8 +70,26 @@
       "topo": "Z",
       "estadosDestino": "q2",
       "empilha": "Z"
+    }, {
+      "estadoPartida": "q2",
+      "simbolo": "_",
+      "topo": "Z",
+      "estadosDestino": "q2",
+      "empilha": "_"
+    }, {
+      "estadoPartida": "q2",
+      "simbolo": "_",
+      "topo": "0",
+      "estadosDestino": "q2",
+      "empilha": "_"
+    }, {
+      "estadoPartida": "q2",
+      "simbolo": "_",
+      "topo": "1",
+      "estadosDestino": "q2",
+      "empilha": "_"
     }
   ],
   "estadoInicial": "q0",
-  "estadosFinais": ["q2"]
+  "estadosFinais": []
 }

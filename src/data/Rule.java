@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Stack;
 
 public class Rule {
-    private final String sourceState;
-    private final char symbol;
-    private final List<String> targetState;
-    private final String StackSymbols;
-    private final String StackTop;
+    private final String sourceState; //Estado inicial
+    private final char symbol; //Simbolo lido
+    private final String targetState; //Proximo estado
+    private final String StackSymbols;  //O que sera empilhado
+    private final String StackTop; //Topo lido da pilha
 
-    public Rule(String sourceState, char symbol, List<String> targetState,String StackS,String StackT) {
+    public Rule(String sourceState, char symbol, String targetState,String StackS,String StackT) {
         this.sourceState = sourceState;
         this.symbol = symbol;
         this.targetState = targetState;
@@ -27,7 +27,7 @@ public class Rule {
         return symbol;
     }
 
-    public List<String> getTargetStates() {
+    public String getTargetStates() {
         return targetState;
     }
 
@@ -44,6 +44,7 @@ public class Rule {
     public char setSymbol(char symbol) {
         return symbol = symbol;
     }
+
 
     @Override
     public String toString() {

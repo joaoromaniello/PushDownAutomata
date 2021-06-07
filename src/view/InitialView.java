@@ -58,7 +58,7 @@ public class InitialView extends JFrame implements ActionListener {
         if (event.getSource() == openFileButton) {
             try {
                 Automaton automaton = inputFileService.parseAutomaton();
-                //System.out.println(automaton.toString());
+                System.out.println(automaton.toString());
                 //PDAService.validateAutomaton(automaton);           <<=== tirar esse coment após adicionar o PDAService
                 //new PDAStepView(automaton);                              <<=== tirar esse coment
                 dispose();
@@ -68,7 +68,7 @@ public class InitialView extends JFrame implements ActionListener {
         } else if (event.getSource() == aboutButton) {
             JOptionPane.showMessageDialog(this, "\n\nO programa tem a finalidade de simular o " +
                             "funcionamento de um Automato de pilha e suas formas de validação.\nPara tal, deve-se " +
-                            "inserir a 7-tupla que o define em um arquivo json que contenha os campos como no exemplo:\n\n" +
+                            "inserir a 6-tupla que o define em um arquivo json que contenha os campos como no exemplo:\n\n" +
                             "{\n" +
                             "   \"estados\": [\"q0\", ..., \"qn\"],\n" +
                             "   \"alfabeto\": \"01...\",\n" +
