@@ -129,8 +129,15 @@ public class Automaton{
 
     }
 
+    public int getStackAlphabetSize(){
+        return stackAlphabet.length();
 
+    }
 
+    public String getStackAlphabet(){
+        return this.stackAlphabet;
+
+    }
     @Override
     public String toString(){
         StringBuilder outputRules = new StringBuilder();

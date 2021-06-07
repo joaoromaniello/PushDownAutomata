@@ -18,27 +18,13 @@ public class ConvertionService {
 
     Automaton emptyToFinal(){
 
-
-
-
         return this.automato;
-
 
 
     }
 
     Automaton finalToEmpty(){
 
-     //int counter  = automato.getStates().size() ; // cria um contador com o tamanho do automato
-     String finalState = "qF";
-        List<String> finalStates = automato.getFinalStates();
-
-        //adiciona transições epsilon de todos os estados finais
-        //para o estado pf ("final")
-
-        for(int i = 0; i < finalStates.size();i++){
-            automato.addRule(finalStates.get(i),'_',finalState,"X","X");
-        }
 
         String initialState = "qI" ;
 
@@ -48,6 +34,17 @@ public class ConvertionService {
          automato.addSymbolToStackAlphabet("X"); //Adiciona X ao alfabeto de simbolos da pilha
          automato.addInitialSymbol("X"); //Adiciona X como um novo estado inicial
 
+
+        String finalState = "qF";
+        List<String> finalStates = automato.getFinalStates();
+
+        //Adiciona transições epsilon de todos os estados finais
+        //Para o novo "estado final"
+
+        for(int i = 0; i < finalStates.size();i++){
+            for(int j = 0 ; j < automato.getStackAlphabetSize();j++){
+                automato.addRule(finalStates.get(i),'_',finalState,"_",String.valueOf(automato.getStackAlphabet().charAt(j)));}
+        }
 
          automato.clearFinalState();
 
@@ -59,8 +56,6 @@ public class ConvertionService {
          for (int i = 0; i < automato.getAlphabet().length() ; i++){
              automato.addRule(finalState,'_',finalState,"_",String.valueOf(automato.getAlphabet().charAt(i)));
          }
-
-
 
         return this.automato;
 

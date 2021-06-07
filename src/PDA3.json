@@ -6,13 +6,13 @@
   "regras": [
     {
       "estadoPartida": "q0",
-      "simbolo": "1",
-      "topo": "1",
+      "simbolo": "0",
+      "topo": "Z",
       "estadosDestino": "q0",
-      "empilha": "11"
+      "empilha": "0Z"
     }, {
       "estadoPartida":"q0",
-      "simbolo": "1",
+      "simbolo": "0",
       "topo": "0",
       "estadosDestino": "q0",
       "empilha": "10"
@@ -21,47 +21,23 @@
       "simbolo": "0",
       "topo": "1",
       "estadosDestino":"q0",
-      "empilha": "01"
+      "empilha": "11"
     }, {
       "estadoPartida": "q0",
-      "simbolo": "0",
-      "topo": "0",
-      "estadosDestino": "q0",
-      "empilha": "00"
-    }, {
-      "estadoPartida": "q0",
-      "simbolo": "1",
-      "topo": "Z",
-      "estadosDestino": "q0",
-      "empilha": "0Z"
-    }, {
-      "estadoPartida": "q0",
-      "simbolo": "_",
-      "topo": "Z",
-      "estadosDestino": "q1",
-      "empilha": "Z"
-    }, {
-      "estadoPartida": "q0",
-      "simbolo": "_",
-      "topo": "0",
-      "estadosDestino": "q1",
-      "empilha": "0"
-    }, {
-      "estadoPartida": "q0",
-      "simbolo": "_",
-      "topo": "1",
-      "estadosDestino": "q1",
-      "empilha": "1"
-    }, {
-      "estadoPartida": "q1",
       "simbolo": "1",
       "topo": "1",
       "estadosDestino": "q1",
       "empilha": "_"
     }, {
       "estadoPartida": "q1",
-      "simbolo": "0",
+      "simbolo": "1",
       "topo": "0",
+      "estadosDestino": "q1",
+      "empilha": "_"
+    }, {
+      "estadoPartida": "q0",
+      "simbolo": "1",
+      "topo": "1",
       "estadosDestino": "q1",
       "empilha": "_"
     }, {
