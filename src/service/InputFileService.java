@@ -35,7 +35,6 @@ public class InputFileService {
         return null;
     }
 
-
     private List<Automaton> parseFile(String absolutePath) throws IOException, ParseException {
 
         jsonField = (JSONObject) new JSONParser().parse(new FileReader(absolutePath));
@@ -95,7 +94,6 @@ public class InputFileService {
 
     }
 
-
     private List<String> parseArrayField(JSONArray jsonArray) {
 
         List<String> array = new ArrayList<>();
@@ -105,7 +103,6 @@ public class InputFileService {
         }
         return array;
     }
-
 
     private String parseAlphabet() {
         return (String) jsonField.get("alfabeto");
