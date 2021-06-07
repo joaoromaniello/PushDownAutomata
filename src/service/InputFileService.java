@@ -19,7 +19,8 @@ public class InputFileService {
     JSONArray jsonArray;
     JSONObject jsonField;
 
-    public Automaton parseAutomaton() throws Exception {
+
+    public List<Automaton> parseAndConvertJSON() throws Exception {
         File workingDirectory = new File(System.getProperty("user.dir"));
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(workingDirectory);
@@ -34,7 +35,9 @@ public class InputFileService {
         return null;
     }
 
-    private Automaton parseFile(String absolutePath) throws IOException, ParseException {
+
+    private List<Automaton> parseFile(String absolutePath) throws IOException, ParseException {
+
         jsonField = (JSONObject) new JSONParser().parse(new FileReader(absolutePath));
 
         jsonArray = (JSONArray) jsonField.get("estados");
@@ -42,7 +45,6 @@ public class InputFileService {
         List<String> states = parseArrayField(jsonArray);
 
         String alphabet = parseAlphabet();
-
 
         String stackAlphabet = parseStackAlphabet();
 
@@ -52,59 +54,47 @@ public class InputFileService {
 
         List<Rule> AFNDRules = parseRules();
 
-
         jsonArray = (JSONArray) jsonField.get("estadosFinais");
 
         List<String> finalStates = parseArrayField(jsonArray);
 
-        Automaton Automato = new Automaton(states,alphabet, AFNDRules, initialState, finalStates,stackAlphabet,initialSymbol);
+        Automaton AutomatoTransformado = new Automaton(states,alphabet, AFNDRules, initialState, finalStates,stackAlphabet,initialSymbol);
 
-        pdaTransformation(Automato);
+        AutomatoTransformado.pdaTransformation();
 
-        return Automato;
-    }
+        //Set parser to original state
+        {jsonArray = (JSONArray) jsonField.get("estados");
 
-    //TODO
-    private Automaton pdaTransformation(Automaton a){
+        states = parseArrayField(jsonArray);
 
+        alphabet = parseAlphabet();
 
-        int aux = -1;  //Variavel para saber qual o tipo do automato o qual estamos fazendo o processamento
+        stackAlphabet = parseStackAlphabet();
 
-        if(a.getFinalStates().size() == 0)
-             aux = 0; //Automato por pilha vazia
+        initialState = parseInitialState();
 
-        else
-            aux = 1;  //Automato por estado final
+        initialSymbol = parseInitialSymbol();
 
+        AFNDRules = parseRules();
 
-        //caso o automato seja um automato por estado final
-        if(aux == 1){
+        jsonArray = (JSONArray) jsonField.get("estadosFinais");
 
-         ConvertionService b = new ConvertionService(a);
-
-         Automaton autB = b.finalToEmpty();
-
-            return autB;
-
+        finalStates = parseArrayField(jsonArray);
         }
 
-        //caso o automato seja um automato por pilha vazia
-        else if(aux == 0){
+        Automaton AutomatoOriginal = new Automaton(states,alphabet, AFNDRules, initialState, finalStates,stackAlphabet,initialSymbol);
 
-            ConvertionService b = new ConvertionService(a);
-
-            Automaton autB = b.emptyToFinal();
-
-            return autB;
-
-        }
+        List<Automaton> automatos = new ArrayList<>();
 
 
-      else
-          return a;
+        automatos.add(AutomatoOriginal);
+        automatos.add(AutomatoTransformado);
+
+        return automatos;
 
 
     }
+
 
     private List<String> parseArrayField(JSONArray jsonArray) {
 
@@ -115,6 +105,7 @@ public class InputFileService {
         }
         return array;
     }
+
 
     private String parseAlphabet() {
         return (String) jsonField.get("alfabeto");

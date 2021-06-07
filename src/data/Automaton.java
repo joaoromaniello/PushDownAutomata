@@ -1,6 +1,8 @@
 package data;
 
 
+import service.ConvertionService;
+
 import java.util.List;
 import java.util.Stack;
 
@@ -138,6 +140,41 @@ public class Automaton{
         return this.stackAlphabet;
 
     }
+
+    public Automaton pdaTransformation(){
+
+        int aux = -1;  //Variavel para saber qual o tipo do automato o qual estamos fazendo o processamento
+
+        if(this.getFinalStates().size() == 0)
+            aux = 0; //Automato por pilha vazia
+
+        else
+            aux = 1;  //Automato por estado final
+
+
+        //caso o automato seja um automato por estado final
+        if(aux == 1){
+            ConvertionService b = new ConvertionService(this);
+            Automaton autB = b.finalToEmpty();
+            return autB;
+
+        }
+
+        //caso o automato seja um automato por pilha vazia
+        else if(aux == 0){
+            ConvertionService b = new ConvertionService(this);
+            Automaton autB = b.emptyToFinal();
+            return autB;
+
+        }
+
+
+        else
+            return this;
+
+
+    }
+
     @Override
     public String toString(){
         StringBuilder outputRules = new StringBuilder();

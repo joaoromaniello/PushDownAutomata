@@ -10,54 +10,55 @@ public class ConvertionService {
     public Automaton automato;
 
 
-    ConvertionService(Automaton a){
+    public ConvertionService(Automaton a){
         this.automato = a;
 
     }
 
 
-    Automaton emptyToFinal(){
+    public Automaton emptyToFinal(){
 
         return this.automato;
 
 
     }
 
-    Automaton finalToEmpty(){
+    public Automaton finalToEmpty(){
 
+        Automaton newAut = automato;
 
         String initialState = "qI" ;
 
         //ADICIONA UM ESTADO INICIAL NOVO O QUAL APONTA PARA O ESTADO INICIAL ANTIGO, COM UMA TRANSIÇÃO ADICIONANDO O ANTIGO SIMBOLO INICIAL DA PILHA
-         automato.addRule(initialState,'_',automato.getInitialState(),"ZX","X");
+         newAut.addRule(initialState,'_',newAut.getInitialState(),"ZX","X");
 
-         automato.addSymbolToStackAlphabet("X"); //Adiciona X ao alfabeto de simbolos da pilha
-         automato.addInitialSymbol("X"); //Adiciona X como um novo estado inicial
+         newAut.addSymbolToStackAlphabet("X"); //Adiciona X ao alfabeto de simbolos da pilha
+         newAut.addInitialSymbol("X"); //Adiciona X como um novo estado inicial
 
 
         String finalState = "qF";
-        List<String> finalStates = automato.getFinalStates();
+        List<String> finalStates = newAut.getFinalStates();
 
         //Adiciona transições epsilon de todos os estados finais
         //Para o novo "estado final"
 
         for(int i = 0; i < finalStates.size();i++){
-            for(int j = 0 ; j < automato.getStackAlphabetSize();j++){
-                automato.addRule(finalStates.get(i),'_',finalState,"_",String.valueOf(automato.getStackAlphabet().charAt(j)));}
+            for(int j = 0 ; j < newAut.getStackAlphabetSize();j++){
+                newAut.addRule(finalStates.get(i),'_',finalState,"_",String.valueOf(newAut.getStackAlphabet().charAt(j)));}
         }
 
-         automato.clearFinalState();
+         newAut.clearFinalState();
 
-         automato.changeInitialState(initialState);
-
-
+         newAut.changeInitialState(initialState);
 
 
-         for (int i = 0; i < automato.getAlphabet().length() ; i++){
-             automato.addRule(finalState,'_',finalState,"_",String.valueOf(automato.getAlphabet().charAt(i)));
+
+
+         for (int i = 0; i < newAut.getAlphabet().length() ; i++){
+             newAut.addRule(finalState,'_',finalState,"_",String.valueOf(newAut.getAlphabet().charAt(i)));
          }
 
-        return this.automato;
+        return newAut;
 
 
     }

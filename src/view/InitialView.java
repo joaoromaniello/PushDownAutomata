@@ -2,7 +2,7 @@ package view;
 
 import data.Automaton;
 import service.InputFileService;
-
+import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +16,7 @@ public class InitialView extends JFrame implements ActionListener {
     JLabel titleLabel = new JLabel("Automato de Pilha(PDA)");
     JButton openFileButton = new JButton("Arquivo...");
     JButton aboutButton = new JButton("Sobre...");
+
 
     //AFNDService automatonService;
 
@@ -33,6 +34,7 @@ public class InitialView extends JFrame implements ActionListener {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400,200);
+        setTitle("Introdução");
     }
 
     private void setupTitle() {
@@ -57,10 +59,12 @@ public class InitialView extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == openFileButton) {
             try {
-                Automaton automaton = inputFileService.parseAutomaton();
-                System.out.println(automaton.toString());
-                //PDAService.validateAutomaton(automaton);           <<=== tirar esse coment após adicionar o PDAService
-                //new PDAStepView(automaton);                              <<=== tirar esse coment
+                List<Automaton> automaton = inputFileService.parseAndConvertJSON();
+                Automaton automaton1 = automaton.get(0);
+                Automaton automaton2 = automaton.get(1);
+
+
+                new PDAStepView(automaton1, automaton2);
                 dispose();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
