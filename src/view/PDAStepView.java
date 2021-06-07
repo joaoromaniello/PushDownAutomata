@@ -21,18 +21,23 @@ public class PDAStepView extends JFrame {
     JTextField palavra = new JTextField();
     JButton validate = new JButton("Validar");
     JButton changeAutomaton = new JButton("<<<<");
+
+//    JScrollBar barra = new JScrollBar();
+//    JScrollBar barra2 = new JScrollBar();
+
+
     int offset = 50;
 
     public PDAStepView(Automaton Aut1,Automaton Aut2){
+
+
         setupFrame();
         setupTitle();
         setupButtons();
 
 
 
-
-
-        //Adiciona os elementos da janela referente ao automato originalmente lido pel json
+        //Adiciona os elementos da janela referente ao automato originalmente lido pelo json
         OriginalPDA.setLayout(null);
         OriginalPDA.setVisible(true);
         OriginalPDA.setBounds(20, 100-offset, 470, 500);
@@ -42,9 +47,10 @@ public class PDAStepView extends JFrame {
         Original.setBounds(170, 60-offset, 100, 30);
         Original.setFont(new Font(null, Font.BOLD, 15));
         OriginalPDA.add(Original);
+//        barra.setBounds(450,0,20,500);
+//        OriginalPDA.add(barra);
 
-
-        printAutomaton(Aut1,OriginalPDA,60,-120);
+        printAutomaton(Aut1,OriginalPDA,60,-140);
 
 
         //Adiciona os elementos da janela referente ao automato convertido
@@ -58,7 +64,11 @@ public class PDAStepView extends JFrame {
         Converted.setFont(new Font(null, Font.BOLD, 15));
         ConvertedPDA.add(Converted);
 
-        printAutomaton(Aut2,ConvertedPDA,60,-120);
+//        barra2.setBounds(450,0,20,500);
+//        ConvertedPDA.add(barra2);
+//        ConvertedPDA.setPreferredSize(new Dimension(470,500));
+
+        printAutomaton(Aut2,ConvertedPDA,60,-140);
 
 
 
