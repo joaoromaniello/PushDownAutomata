@@ -35,6 +35,7 @@ public class InitialView extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400,200);
         setTitle("Introdução");
+        setLocation(760,340);
     }
 
     private void setupTitle() {

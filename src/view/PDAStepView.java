@@ -17,8 +17,7 @@ public class PDAStepView extends JFrame {
     JPanel ConvertedPDA = new JPanel();
     JLabel Original = new JLabel("PDA Original");
     JLabel Converted = new JLabel("PDA Convertido");
-    JLabel OriginalString =  new JLabel();
-    JLabel ConvertedString =  new  JLabel();
+
     JTextField palavra = new JTextField();
     JButton validate = new JButton("Validar");
     JButton changeAutomaton = new JButton("<<<<");
@@ -29,40 +28,42 @@ public class PDAStepView extends JFrame {
         setupTitle();
         setupButtons();
 
-        JLabel OriginalString =  new JLabel();
-        JLabel ConvertedString =  new  JLabel();
 
-        OriginalString.setText("<html><p style=\"width:300px\">"+Aut1.toString()+"</p></html>");
+
+
+
         //Adiciona os elementos da janela referente ao automato originalmente lido pel json
+        OriginalPDA.setLayout(null);
         OriginalPDA.setVisible(true);
         OriginalPDA.setBounds(20, 100-offset, 470, 500);
         OriginalPDA.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
         OriginalPDA.setBackground(new Color(255, 255, 255));
         add(OriginalPDA);
-        Original.setBounds(245, 140-offset, 55, 30);
+        Original.setBounds(170, 60-offset, 100, 30);
         Original.setFont(new Font(null, Font.BOLD, 15));
         OriginalPDA.add(Original);
-        OriginalString.setBounds(60,170-offset,250,400);
-        OriginalPDA.add(OriginalString);
 
-        ConvertedString.setText("<html><p style=\"width:300px\">"+Aut2.toString()+"</p></html>");
+
+        printAutomaton(Aut1,OriginalPDA,60,-120);
+
+
         //Adiciona os elementos da janela referente ao automato convertido
+        ConvertedPDA.setLayout(null);
         ConvertedPDA.setVisible(true);
         ConvertedPDA.setBounds(500, 100-offset, 470, 500);
         ConvertedPDA.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
         ConvertedPDA.setBackground(new Color(255, 255, 255));
         add(ConvertedPDA);
-        Converted.setBounds(715, 140-offset, 55, 30);
+        Converted.setBounds(170, 60-offset, 130, 30);
         Converted.setFont(new Font(null, Font.BOLD, 15));
         ConvertedPDA.add(Converted);
-        ConvertedString.setBounds(540,170-offset,250,400);
-        ConvertedPDA.add(ConvertedString);
+
+        printAutomaton(Aut2,ConvertedPDA,60,-120);
 
 
 
 
     }
-
 
     void setupFrame() {
         setLayout(null);
@@ -104,6 +105,121 @@ public class PDAStepView extends JFrame {
             dispose();
             new InitialView();
         });
+    }
+
+    private void printAutomaton(Automaton a,JPanel panel, int xAxis , int yAxis){
+        int counter = 0;
+
+
+        //Constroi a String para os estados percorridos
+        JLabel CStates = new JLabel();
+        CStates.setText("Q:"+a.getStates()+",\n");
+        CStates.setBounds(xAxis,yAxis,250,400);
+        panel.add(CStates);
+        counter += 20;
+        /////////////////////////////////////////////////////////////////////////
+
+        //Constroi a String para o alfabeto de entrada
+        StringBuilder outputAlphabet = new StringBuilder();
+        outputAlphabet.append("[");
+        for(int i = 0; i < a.getAlphabet().length(); i++) {
+            outputAlphabet.append(a.getAlphabet().charAt(i));
+            if (i != a.getAlphabet().length()-1) {
+                outputAlphabet.append(", ");
+            }
+        }
+        JLabel CAlphabet = new JLabel();
+        CAlphabet.setText("\u03A3: " +outputAlphabet + "], \n");
+        CAlphabet.setBounds(xAxis,yAxis + counter,250,400);
+        panel.add(CAlphabet);
+        counter += 20;
+        /////////////////////////////////////////////////////////////////////////
+
+        //Constroi a String para o alfabeto da pilha
+        StringBuilder outputStackAlphabet = new StringBuilder();
+        for(int i = 0; i < a.getStackAlphabet().length(); i++) {
+            outputStackAlphabet.append(a.getStackAlphabet().charAt(i));
+            if (i != a.getStackAlphabet().length()-1) {
+                outputStackAlphabet.append(", ");
+            }
+        }
+
+        JLabel CStackAlphabet = new JLabel();
+        CStackAlphabet.setText( "\u0393: ["  + outputStackAlphabet + "],\n");
+        CStackAlphabet.setBounds(xAxis,yAxis + counter,250,400);
+        panel.add(CStackAlphabet);
+        counter += 20;
+        /////////////////////////////////////////////////////////////////////////
+
+        //Constroi a String para as regras do automato
+        JLabel regras = new JLabel("\u03B4:[");
+        regras.setBounds(xAxis, yAxis + counter, 250, 400);
+        panel.add(regras);
+        counter += 20;
+
+        JLabel[] CRules =new JLabel[a.getRules().size()];
+
+        for(int j = 0; j < a.getRules().size();j++){
+
+            if(j == a.getRules().size()-1){
+                CRules[j] = new JLabel(a.getRules().get(j).toString() +"]");
+            }
+            else
+            CRules[j] = new JLabel(a.getRules().get(j).toString());
+
+        }
+
+          for(int i =0 ; i < a.getRules().size();i++) {
+              CRules[i].setBounds(xAxis, yAxis + counter, 250, 400);
+              panel.add(CRules[i]);
+              counter += 20;
+
+          }
+
+
+        /////////////////////////////////////////////////////////////////////////
+
+
+        //Constroi a String para os estados iniciais
+        JLabel CInitialState = new JLabel();
+
+        CInitialState.setText("q \u2080  : " + a.getInitialState() +",");
+        CInitialState.setBounds(xAxis,yAxis+counter,250,400);
+        panel.add(CInitialState);
+        counter += 20;
+
+        /////////////////////////////////////////////////////////////////////////
+
+        JLabel CFinalState = new JLabel();
+
+        if(a.getFinalStates().size() != 0){
+            CFinalState.setText("F: " + a.getFinalStates() + "\n");
+            CFinalState.setBounds(xAxis,yAxis+counter,250,400);
+            panel.add(CFinalState);
+            counter += 20;
+
+        }
+
+            /////////////////////////////////////////////////////////////////////////
+        JLabel CInitialSymbol = new JLabel();
+
+        StringBuilder outputStackInitialSymbol = new StringBuilder();
+        for(int i = 0; i < a.getInitialSymbols().length(); i++) {
+            outputStackInitialSymbol.append(a.getInitialSymbols().charAt(i));
+            if (i != a.getInitialSymbols().length()-1) {
+                outputStackInitialSymbol.append(", ");
+            }
+        }
+
+        CInitialSymbol.setText("Z0: [" + outputStackInitialSymbol + "],\n");
+        CInitialSymbol.setBounds(xAxis,yAxis+counter,250,400);
+        panel.add(CInitialSymbol);
+        counter += 20;
+
+
+
+
+
     }
 
 }
