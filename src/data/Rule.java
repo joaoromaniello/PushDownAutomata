@@ -31,20 +31,15 @@ public class Rule {
         return targetState;
     }
 
-    public char getStackTop(Stack a){
-         char poppedChar = (char) a.pop();
+    public String getStackTop(){
 
-        a.push(poppedChar);
-
-        return poppedChar; //retorna o topo da pilha
-
+        return this.StackTop;
 
     }
 
     public char setSymbol(char symbol) {
         return symbol = symbol;
     }
-
 
     @Override
     public String toString() {

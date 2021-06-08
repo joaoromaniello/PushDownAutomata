@@ -2,11 +2,14 @@ package view;
 
 import data.Automaton;
 import service.InputFileService;
+import service.PDAService;
+
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Stack;
 
 import static javax.swing.SwingConstants.CENTER;
 
@@ -64,6 +67,10 @@ public class InitialView extends JFrame implements ActionListener {
                 Automaton automaton1 = automaton.get(0);
                 Automaton automaton2 = automaton.get(1);
 
+
+                PDAService pdaService = new PDAService(automaton1);
+
+                pdaService.getApplicableRules(automaton1.getInitialState(),automaton1,"00011");
 
                 new PDAStepView(automaton1, automaton2);
                 dispose();

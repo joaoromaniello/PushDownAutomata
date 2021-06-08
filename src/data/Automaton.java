@@ -4,7 +4,6 @@ package data;
 import service.ConvertionService;
 
 import java.util.List;
-import java.util.Stack;
 
 public class Automaton{
     //Constroi o automato e sua sétupla
@@ -55,36 +54,35 @@ public class Automaton{
         return finalStates.toString();
     }
 
-    public int changeInitialState(String newState){
+    public void changeInitialState(String newState){
 
-        for(int i = 0; i< this.states.size();i++){
-            if(states.get(i).equalsIgnoreCase(newState)){ //Caso esse estado pertencer ao automato
-            this.initialState = newState;
-            return 1; //obteve sucesso mudando o estado final
+        for (String state : this.states) {
+            if (state.equalsIgnoreCase(newState)) { //Caso esse estado pertencer ao automato
+                this.initialState = newState;
+
+                break;
             }
 
 
         }
-          return 0; //nao obteve sucesso mudando o estado inicial
     }
 
-    public int addNewState(String newState){
+    public void addNewState(String newState){
           this.states.add(newState);
 
-        return 1;
     }
 
-    public int addRule(String base,char simbolo,String proximo ,String SimboloPilha,String Topo){
+    public void addRule(String base, char simbolo, String proximo , String SimboloPilha, String Topo){
 
         int aux1 = 0;  //Variavel para evitar que entre mais vezes na condição
         int aux2 = 0; //Variavel para evitar que entre mais vezes na condição
 
         for(int i = 0 ; i < this.getStates().size();i++){
             String simboloAtual = this.getStates().get(i);
-            if(simboloAtual.contentEquals(base) == true ) {//O estado base da regra  existe nos estado do automato
+            if(simboloAtual.contentEquals(base)) {//O estado base da regra  existe nos estado do automato
                 aux1 = 1;
             }
-            if( simboloAtual.equals(proximo) == true) { //O proximo estado da regra   existe nos estado do automato
+            if(simboloAtual.equals(proximo)) { //O proximo estado da regra   existe nos estado do automato
                 aux2 = 1;
             }
 
@@ -103,30 +101,22 @@ public class Automaton{
         this.rules.add(newRule); //adiciona essa regra ao conjunto de regras
 
 
-
-      return 1;
     }
 
-    public int clearFinalState(){
+    public void clearFinalState(){
         this.finalStates.clear();
 
-        return 1;
-
     }
 
-    public int addSymbolToStackAlphabet(String newSymbol){
+    public void addSymbolToStackAlphabet(String newSymbol){
 
         this.stackAlphabet = newSymbol.concat(this.stackAlphabet);
 
-        return 1;
-
     }
 
-    public int addInitialSymbol(String newSymbol){
+    public void addInitialSymbol(String newSymbol){
 
         this.initialSymbol = newSymbol.concat(this.initialSymbol);
-
-        return 1;
 
 
     }
@@ -155,22 +145,45 @@ public class Automaton{
         //caso o automato seja um automato por estado final
         if(aux == 1){
             ConvertionService b = new ConvertionService(this);
-            Automaton autB = b.finalToEmpty();
-            return autB;
+            return b.finalToEmpty();
 
         }
 
         //caso o automato seja um automato por pilha vazia
         else if(aux == 0){
             ConvertionService b = new ConvertionService(this);
-            Automaton autB = b.emptyToFinal();
-            return autB;
+            return b.emptyToFinal();
 
         }
 
 
+
         else
             return this;
+
+
+    }
+
+    public boolean isFinalState(String a){
+
+        for(int i = 0; i<this.finalStates.size();i++){
+            if(a.equals(this.finalStates.get(0)));
+            return true;
+        }
+        return false;
+
+    }
+
+    public int identifyType(){
+        int aux = -1;  //Variavel para saber qual o tipo do automato o qual estamos fazendo o processamento
+
+        if(this.getFinalStates().size() == 0)
+            aux = 0; //Automato por pilha vazia
+
+        else
+            aux = 1;  //Automato por estado final
+
+        return aux; //
 
 
     }
