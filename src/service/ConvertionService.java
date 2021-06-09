@@ -15,7 +15,6 @@ public class ConvertionService {
 
     }
 
-
     public Automaton emptyToFinal(){
 
         System.out.println("Automato original");
