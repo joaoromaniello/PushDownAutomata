@@ -253,6 +253,23 @@ public class Automaton{
         }
     }
 
+    public void changeFinalState(String a){
+        //Limpa o antigo estado final
+        this.clearFinalState();
+
+        for (String state : this.states) {//Caso esse estado pertencer ao automato
+            if (state.equalsIgnoreCase(a)) { //
+                this.finalStates.add(a);
+
+                break;
+            }
+
+
+        }
+
+
+    }
+
 
 
 }

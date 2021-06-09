@@ -30,6 +30,17 @@ public class PDAStepView extends JFrame {
 
     public PDAStepView(Automaton Aut1,Automaton Aut2){
 
+            if(Aut1.identifyType() == 0){
+                Original = new JLabel("PDA Original (Por pilha vazia)");
+                Converted = new JLabel("PDA Convertido (Por estado final)");
+
+            }
+
+            if(Aut1.identifyType() == 1){
+                 Converted = new JLabel("PDA Convertido (Por pilha vazia)");
+                 Original = new JLabel("PDA Original (Por estado final)");
+
+            }
 
         setupFrame();
         setupTitle();
@@ -44,7 +55,7 @@ public class PDAStepView extends JFrame {
         OriginalPDA.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
         OriginalPDA.setBackground(new Color(255, 255, 255));
         add(OriginalPDA);
-        Original.setBounds(170, 60-offset, 100, 30);
+        Original.setBounds(140, 60-offset, 300, 30);
         Original.setFont(new Font(null, Font.BOLD, 15));
         OriginalPDA.add(Original);
 //        barra.setBounds(450,0,20,500);
@@ -60,7 +71,7 @@ public class PDAStepView extends JFrame {
         ConvertedPDA.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
         ConvertedPDA.setBackground(new Color(255, 255, 255));
         add(ConvertedPDA);
-        Converted.setBounds(170, 60-offset, 130, 30);
+        Converted.setBounds(140, 60-offset, 300, 30);
         Converted.setFont(new Font(null, Font.BOLD, 15));
         ConvertedPDA.add(Converted);
 
