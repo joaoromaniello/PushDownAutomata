@@ -33,7 +33,7 @@ public class ConvertionService {
          newAut.addRule(initialState,'_',newAut.getInitialState(),"ZX","X");
 
          newAut.addSymbolToStackAlphabet("X"); //Adiciona X ao alfabeto de simbolos da pilha
-         newAut.addInitialSymbol("X"); //Adiciona X como um novo estado inicial
+         newAut.changeInitialSymbol("X"); //Adiciona X como um novo estado inicial
 
 
         String finalState = "qF";

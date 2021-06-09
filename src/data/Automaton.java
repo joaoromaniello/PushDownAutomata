@@ -114,9 +114,9 @@ public class Automaton{
 
     }
 
-    public void addInitialSymbol(String newSymbol){
+    public void changeInitialSymbol(String newSymbol){
 
-        this.initialSymbol = newSymbol.concat(this.initialSymbol);
+        this.initialSymbol = newSymbol;
 
 
     }

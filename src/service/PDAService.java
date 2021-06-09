@@ -43,8 +43,6 @@ public class PDAService {
 
     }
 
-
-
     public char readStackTop(Stack stack){
 
        char a = (char) stack.pop();
@@ -55,7 +53,6 @@ public class PDAService {
 
 
     }
-
 
     public List<Rule> getApplicableRules(String State,Automaton a,String sequence){
 
