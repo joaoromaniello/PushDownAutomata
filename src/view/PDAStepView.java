@@ -32,8 +32,9 @@ public class PDAStepView extends JFrame {
 
             if(Aut1.identifyType() == 0){
                 Original = new JLabel("PDA Original (Por pilha vazia)");
+                Original.setForeground(Color.blue);
                 Converted = new JLabel("PDA Convertido (Por estado final)");
-
+                Converted.setForeground(Color.red);
             }
 
             if(Aut1.identifyType() == 1){
