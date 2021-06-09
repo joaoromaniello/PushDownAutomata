@@ -99,6 +99,7 @@ public class PDAStepView extends JFrame {
         wordLabel.setBounds(80,615-(offset/2),100,30);
         add(wordLabel);
         add(palavra);
+        setLocation(460,140);
     }
 
     private void setupTitle() {
