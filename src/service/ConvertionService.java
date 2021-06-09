@@ -41,6 +41,7 @@ public class ConvertionService {
         //Adiciona transições epsilon de todos os estados " (qn,_,X) -> (qf_X) "
         //Para o novo "estado final"
         for(int i = 0; i < allStates.size();i++){
+                if(!allStates.get(i).equals(finalState) && !allStates.get(i).equals(initialState))
                 newAut.addRule(allStates.get(i),'_',finalState,"X","X");
         }
 
