@@ -1,6 +1,9 @@
-# PushDownAutomata 
+<h1 align="center">
+  #PUSHDOWN AUTOMATA
+</h1>
+<p align="center">Algorithm made for academic purposes, in order to learn how na PDA works.</p>
 
-Algorithm made for academic purposes, in order to learn how na PDA works.
+
 
 # Goals
 
