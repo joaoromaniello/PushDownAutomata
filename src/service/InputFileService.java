@@ -57,31 +57,32 @@ public class InputFileService {
 
         List<String> finalStates = parseArrayField(jsonArray);
 
-        Automaton AutomatoTransformado = new Automaton(states,alphabet, AFNDRules, initialState, finalStates,stackAlphabet,initialSymbol);
+        Automaton AutomatoTransformado = new Automaton(states, alphabet, AFNDRules, initialState, finalStates, stackAlphabet, initialSymbol);
 
         AutomatoTransformado.pdaTransformation();
 
         //Set parser to original state
-        {jsonArray = (JSONArray) jsonField.get("estados");
+        {
+            jsonArray = (JSONArray) jsonField.get("estados");
 
-        states = parseArrayField(jsonArray);
+            states = parseArrayField(jsonArray);
 
-        alphabet = parseAlphabet();
+            alphabet = parseAlphabet();
 
-        stackAlphabet = parseStackAlphabet();
+            stackAlphabet = parseStackAlphabet();
 
-        initialState = parseInitialState();
+            initialState = parseInitialState();
 
-        initialSymbol = parseInitialSymbol();
+            initialSymbol = parseInitialSymbol();
 
-        AFNDRules = parseRules();
+            AFNDRules = parseRules();
 
-        jsonArray = (JSONArray) jsonField.get("estadosFinais");
+            jsonArray = (JSONArray) jsonField.get("estadosFinais");
 
-        finalStates = parseArrayField(jsonArray);
+            finalStates = parseArrayField(jsonArray);
         }
 
-        Automaton AutomatoOriginal = new Automaton(states,alphabet, AFNDRules, initialState, finalStates,stackAlphabet,initialSymbol);
+        Automaton AutomatoOriginal = new Automaton(states, alphabet, AFNDRules, initialState, finalStates, stackAlphabet, initialSymbol);
 
         List<Automaton> automatos = new ArrayList<>();
 
@@ -131,7 +132,7 @@ public class InputFileService {
 
             String targetState = (String) jsonRule.get("estadosDestino");
 
-            PDARules.add(new Rule(sourceState, symbol.charAt(0), targetState,StackSymbol,StackTop));
+            PDARules.add(new Rule(sourceState, symbol.charAt(0), targetState, StackSymbol, StackTop));
         }
         return PDARules;
     }
@@ -140,12 +141,12 @@ public class InputFileService {
         return (String) jsonField.get("estadoInicial");
     }
 
-    private String parseStackAlphabet(){
-        return(String) jsonField.get("alfabetoPilha");
+    private String parseStackAlphabet() {
+        return (String) jsonField.get("alfabetoPilha");
     }
 
-    private String parseInitialSymbol(){
-        return(String) jsonField.get("simboloInicial");
+    private String parseInitialSymbol() {
+        return (String) jsonField.get("simboloInicial");
     }
 }
 

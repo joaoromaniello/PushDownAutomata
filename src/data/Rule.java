@@ -32,9 +32,7 @@ public class Rule {
     }
 
     public String getStackTop(){
-
         return this.StackTop;
-
     }
 
     public char setSymbol(char symbol) {

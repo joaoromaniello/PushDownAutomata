@@ -16,11 +16,9 @@ public class PDAService {
 
     Stack pilha = new Stack();
 
-
     public PDAService(Automaton automaton){
         this.automaton = automaton;
         pilha.push(automaton.getInitialSymbols().charAt(0)); //Adiciona o simbolo inicial à pilha
-
     }
 
     public int proccesSequence(String sequence,String actualState,Stack a){
@@ -37,10 +35,7 @@ public class PDAService {
                 return 1; //cadeia valida
             }
         }
-
-
         return 0;
-
     }
 
     public char readStackTop(Stack stack){
