@@ -1,74 +1,70 @@
 package service;
 
 import data.Automaton;
+import data.EFechoIndex;
 import data.Rule;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 import static java.util.Collections.emptySet;
 
 public class PDAService {
 
     Automaton automaton;
+    Stack<EFechoIndex> eFechoIndices;
 
-    Stack pilha = new Stack();
-
-    public PDAService(Automaton automaton){
+    public void belongsToLanguage(String sequence, Automaton automaton) throws Exception {
         this.automaton = automaton;
-        pilha.push(automaton.getInitialSymbols().charAt(0)); //Adiciona o simbolo inicial à pilha
+        eFechoIndices = new Stack<>();
+        Set<String> firstEFecho = calculateEfecho(automaton.getInitialState(), emptySet());
+        for (String state: firstEFecho) { //Adiciono todos os possíveis estados iniciais lendo a posição 0 da cadeia
+            eFechoIndices.add(new EFechoIndex(state, 0));
+        }
+        processSequence(sequence);
     }
 
-    public int proccesSequence(String sequence,String actualState,Stack a){
-
-        ////CASO BASE...
-        if(automaton.identifyType() == 0){  //por pilha vazia
-            if(pilha.isEmpty() && sequence.length() == 0) {  //caso a pilha estiver vazia e a sequencia tiver sido consumida
-                return 1; //cadeia valida
+    private Set<String> calculateEfecho(String state, Set<Object> eFechoRequest) {
+        Set<String> eFechoResponse = new HashSet<>(emptySet());
+        eFechoResponse.add(state);
+        for (Rule rule: automaton.getRules()) {
+            if (rule.getSourceState().equals(state) && rule.getSymbol() == '_') { // Encontro regras com transição vazia a partir do estado
+                for (String target: rule.getTargetStates()) {
+                    if (!eFechoRequest.contains(target)) { // Se ainda não tenho no eFecho calculo recursivamente os próximos itens
+                        eFechoResponse.addAll(calculateEfecho(target, eFechoRequest));
+                    }
+                }
             }
         }
-        ////CASO BASE...
-        if(automaton.identifyType() == 1){  //por estado final
-            if(automaton.isFinalState(actualState) && sequence.length() == 0){ //caso o estado atual for final e a sequencia tiver sido consumida
-                return 1; //cadeia valida
-            }
-        }
-        return 0;
+        return eFechoResponse;
     }
 
-    public char readStackTop(Stack stack){
-
-       char a = (char) stack.pop();
-
-        stack.push(a);
-
-        return a;
-
-
+    private void processSequence(String sequence) throws Exception {
+//        if (eFechoIndices.isEmpty()){ //não tenho mais pra onde ir
+//            throw new Exception("n pertence");
+//        }
+//
+//        EFechoIndex eFechoIndex = eFechoIndices.pop();
+//
+//        Set<String> eFecho = new HashSet<>(emptySet());
+//        if (eFechoIndex.getPosition() == sequence.length()) { // terminei de ler a cadeia
+//            if (automaton.getFinalStates().contains(eFechoIndex.getState())) { // estado atual é estado de aceitação
+//                throw new Exception("pertence");
+//            } else { //busco as próximas possibilidades da pilha de efecho
+//                processSequence(sequence);
+//            }
+//        } else { // se não é o fim da cadeia
+//            char symbol = sequence.charAt(eFechoIndex.getPosition()); // busco o símbolo na posição do efecho do topo da pilha
+//            for (Rule rule: automaton.getRules()) {
+//                if (rule.getSourceState().equals(eFechoIndex.getState()) && rule.getSymbol() == symbol) { // encontro regra aplicável
+//                    for (String targetState : rule.getTargetStates()) { //calculo novo e fecho
+//                        eFecho.addAll(calculateEfecho(targetState, emptySet()));
+//                    }
+//                    for (String eFechoState: eFecho) { // adiciono os novos estados lendo a próxima posição da cadeia
+//                        eFechoIndices.add(new EFechoIndex(eFechoState, eFechoIndex.getPosition()+1));
+//                    }
+//                }
+//            }
+//            processSequence(sequence);
+//        }
     }
-
-    public List<Rule> getApplicableRules(String State,Automaton a,String sequence){
-
-        char symbol = sequence.charAt(0);
-
-        List<Rule> rules= new ArrayList<>();
-        for(int i =0 ; i < a.getRules().size() ; i++){
-            if(a.getRules().get(i).getSourceState().equals(State) &&  symbol == a.getRules().get(i).getSymbol() && String.valueOf(readStackTop(pilha)) == a.getRules().get(i).getStackTop() ){ //Encontra regras que começam com o mesmo simbolo
-                rules.add(a.getRules().get(i));
-            }
-        }
-
-        System.out.println(rules.toString());
-        return rules;
-    }
-
-    public Stack getPdaStack(){
-
-        return pilha;
-    }
-
-
-
 }

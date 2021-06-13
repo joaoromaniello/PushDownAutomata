@@ -1,6 +1,7 @@
 package view;
 
 import data.Automaton;
+import service.PDAService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,19 +10,31 @@ import static javax.swing.SwingConstants.CENTER;
 
 public class PDAStepView extends JFrame {
 
+    PDAService pdaService = new PDAService();
+    Automaton emptyStackAutomata;
+    Automaton finalStateAutomata;
+
     JTextField palavra = new JTextField();
     JButton validate = new JButton("Validar");
     JButton changeAutomaton = new JButton("<<<<");
 
     public PDAStepView(Automaton aut1, Automaton aut2) {
 
+        setupFrame();
+        setupTitle();
+        setupButtons();
+
         JLabel originalLabel;
         JLabel convertedLabel;
 
         if (aut1.identifyType() == 0) {
+            emptyStackAutomata = aut1;
+            finalStateAutomata = aut2;
             originalLabel = new JLabel("PDA Original (Por pilha vazia)");
             convertedLabel = new JLabel("PDA Convertido (Por estado final)");
         } else {
+            emptyStackAutomata = aut2;
+            finalStateAutomata = aut1;
             convertedLabel = new JLabel("PDA Convertido (Por pilha vazia)");
             originalLabel = new JLabel("PDA Original (Por estado final)");
         }
@@ -37,10 +50,6 @@ public class PDAStepView extends JFrame {
         convertedLabel.setHorizontalAlignment(CENTER);
         convertedLabel.setForeground(Color.red);
         add(convertedLabel);
-
-        setupFrame();
-        setupTitle();
-        setupButtons();
 
         //Adiciona os elementos da janela referente ao automato originalmente lido pelo json
         JScrollPane OriginalPane = new JScrollPane(buildTextArea(aut1.toString()));
@@ -78,20 +87,12 @@ public class PDAStepView extends JFrame {
 
     private void setupButtons() {
         validate.setBounds(580, 575, 390, 60);
-        validate.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
         changeAutomaton.setBounds(20, 15, 100, 30);
-        changeAutomaton.setBorder(BorderFactory.createLineBorder(new Color(255, 0, 0)));
         add(changeAutomaton);
         add(validate);
 
         this.changeAutomatonButtonAction();
-    }
-
-    private void changeAutomatonButtonAction() {
-        changeAutomaton.addActionListener(e -> {
-            dispose();
-            new InitialView();
-        });
+        this.validateButtonAction();
     }
 
     public JTextArea buildTextArea(String text) {
@@ -103,5 +104,22 @@ public class PDAStepView extends JFrame {
         textArea.setCaretPosition(0);
 
         return textArea;
+    }
+
+    private void changeAutomatonButtonAction() {
+        changeAutomaton.addActionListener(e -> {
+            dispose();
+            new InitialView();
+        });
+    }
+
+    private void validateButtonAction() {
+        validate.addActionListener(e -> {
+            try {
+                pdaService.belongsToLanguage(palavra.getText(), finalStateAutomata);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        });
     }
 }
