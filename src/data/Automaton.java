@@ -1,7 +1,7 @@
 package data;
 
 
-import service.ConvertionService;
+import service.ConversionService;
 
 import java.util.List;
 
@@ -127,13 +127,13 @@ public class Automaton{
 
         //caso o automato seja um automato por estado final
         if(aux == 1){
-            ConvertionService b = new ConvertionService(this);
+            ConversionService b = new ConversionService(this);
             return b.finalToEmpty();
         }
 
         //caso o automato seja um automato por pilha vazia
         else if(aux == 0){
-            ConvertionService b = new ConvertionService(this);
+            ConversionService b = new ConversionService(this);
             return b.emptyToFinal();
         }
 
@@ -208,21 +208,6 @@ public class Automaton{
                 "Z0: [" + outputStackInitialSymbol + "],\n" +
                 "q\u2080: " + initialState + ",\n" +
                 "F: " + finalStates + "\n";
-    }
-
-    public void validateSequence(String sequence) throws Exception {
-        for (int i = 0; i < sequence.length(); i++) {
-            boolean found = false;
-            for (int j = 0; j < alphabet.length(); j++) {
-                if (sequence.charAt(i) == alphabet.charAt(j)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                throw new Exception("Elementos da cadeia devem pertencer ao alfabeto!");
-            }
-        }
     }
 
     public void changeFinalState(String a) {

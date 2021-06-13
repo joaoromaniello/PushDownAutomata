@@ -4,18 +4,15 @@ import data.Automaton;
 
 import java.util.List;
 
-public class ConvertionService {
+public class ConversionService {
 
     public Automaton automato;
 
-    public ConvertionService(Automaton a) {
+    public ConversionService(Automaton a) {
         this.automato = a;
     }
 
     public Automaton emptyToFinal() {
-
-        System.out.println("Automato original");
-        System.out.println(automato.toString());
 
         Automaton newAut = automato;
 
@@ -45,8 +42,6 @@ public class ConvertionService {
         //Cria o estado final sendo o estado criado
         newAut.changeFinalState(finalState);
 
-        System.out.println("Automato modificado");
-        System.out.println(newAut.toString());
         return newAut;
     }
 
