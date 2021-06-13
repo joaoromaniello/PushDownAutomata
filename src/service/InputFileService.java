@@ -38,60 +38,43 @@ public class InputFileService {
     private List<Automaton> parseFile(String absolutePath) throws IOException, ParseException {
 
         jsonField = (JSONObject) new JSONParser().parse(new FileReader(absolutePath));
-
         jsonArray = (JSONArray) jsonField.get("estados");
 
         List<String> states = parseArrayField(jsonArray);
-
         String alphabet = parseAlphabet();
-
         String stackAlphabet = parseStackAlphabet();
-
         String initialState = parseInitialState();
-
         String initialSymbol = parseInitialSymbol();
-
         List<Rule> AFNDRules = parseRules();
 
         jsonArray = (JSONArray) jsonField.get("estadosFinais");
-
         List<String> finalStates = parseArrayField(jsonArray);
 
-        Automaton AutomatoTransformado = new Automaton(states,alphabet, AFNDRules, initialState, finalStates,stackAlphabet,initialSymbol);
+        Automaton AutomatoTransformado = new Automaton(states, alphabet, AFNDRules, initialState, finalStates, stackAlphabet, initialSymbol);
 
         AutomatoTransformado.pdaTransformation();
 
         //Set parser to original state
-        {jsonArray = (JSONArray) jsonField.get("estados");
-
-        states = parseArrayField(jsonArray);
-
-        alphabet = parseAlphabet();
-
-        stackAlphabet = parseStackAlphabet();
-
-        initialState = parseInitialState();
-
-        initialSymbol = parseInitialSymbol();
-
-        AFNDRules = parseRules();
-
-        jsonArray = (JSONArray) jsonField.get("estadosFinais");
-
-        finalStates = parseArrayField(jsonArray);
+        {
+            jsonArray = (JSONArray) jsonField.get("estados");
+            states = parseArrayField(jsonArray);
+            alphabet = parseAlphabet();
+            stackAlphabet = parseStackAlphabet();
+            initialState = parseInitialState();
+            initialSymbol = parseInitialSymbol();
+            AFNDRules = parseRules();
+            jsonArray = (JSONArray) jsonField.get("estadosFinais");
+            finalStates = parseArrayField(jsonArray);
         }
 
-        Automaton AutomatoOriginal = new Automaton(states,alphabet, AFNDRules, initialState, finalStates,stackAlphabet,initialSymbol);
+        Automaton AutomatoOriginal = new Automaton(states, alphabet, AFNDRules, initialState, finalStates, stackAlphabet, initialSymbol);
 
         List<Automaton> automatos = new ArrayList<>();
-
 
         automatos.add(AutomatoOriginal);
         automatos.add(AutomatoTransformado);
 
         return automatos;
-
-
     }
 
     private List<String> parseArrayField(JSONArray jsonArray) {
@@ -131,7 +114,7 @@ public class InputFileService {
 
             String targetState = (String) jsonRule.get("estadosDestino");
 
-            PDARules.add(new Rule(sourceState, symbol.charAt(0), targetState,StackSymbol,StackTop));
+            PDARules.add(new Rule(sourceState, symbol.charAt(0), targetState, StackSymbol, StackTop));
         }
         return PDARules;
     }
@@ -140,12 +123,12 @@ public class InputFileService {
         return (String) jsonField.get("estadoInicial");
     }
 
-    private String parseStackAlphabet(){
-        return(String) jsonField.get("alfabetoPilha");
+    private String parseStackAlphabet() {
+        return (String) jsonField.get("alfabetoPilha");
     }
 
-    private String parseInitialSymbol(){
-        return(String) jsonField.get("simboloInicial");
+    private String parseInitialSymbol() {
+        return (String) jsonField.get("simboloInicial");
     }
 }
 

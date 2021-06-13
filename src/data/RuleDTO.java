@@ -11,7 +11,6 @@ public class RuleDTO {
     private final char StackTop;
     private final char StackSymbol;
 
-
     public RuleDTO(String sourceState, char symbol, List<String> targetState, boolean emptyStateRule,char StackTop,char StackSymbol) {
         this.sourceState = sourceState;
         this.symbol = symbol;
@@ -55,5 +54,4 @@ public class RuleDTO {
                 ", emptyStateRule=" + emptyStateRule +
                 '}';
     }
-
 }

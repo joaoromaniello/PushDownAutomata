@@ -1,7 +1,7 @@
 package data;
 
 
-import service.ConvertionService;
+import service.ConversionService;
 
 import java.util.List;
 
@@ -62,8 +62,6 @@ public class Automaton{
 
                 break;
             }
-
-
         }
     }
 
@@ -85,8 +83,6 @@ public class Automaton{
             if(simboloAtual.equals(proximo)) { //O proximo estado da regra   existe nos estado do automato
                 aux2 = 1;
             }
-
-
         }
 
         if(aux1 == 0)
@@ -95,40 +91,29 @@ public class Automaton{
         if(aux2 == 0)
             this.addNewState(proximo); //adiciona o estado à lista de estados
 
-
         Rule newRule = new Rule(base,simbolo,proximo,SimboloPilha,Topo); //Cria uma regra nova
 
         this.rules.add(newRule); //adiciona essa regra ao conjunto de regras
-
-
     }
 
     public void clearFinalState(){
         this.finalStates.clear();
-
     }
 
     public void addSymbolToStackAlphabet(String newSymbol){
-
         this.stackAlphabet = newSymbol.concat(this.stackAlphabet);
-
     }
 
     public void changeInitialSymbol(String newSymbol){
-
         this.initialSymbol = newSymbol;
-
-
     }
 
     public int getStackAlphabetSize(){
         return stackAlphabet.length();
-
     }
 
     public String getStackAlphabet(){
         return this.stackAlphabet;
-
     }
 
     public Automaton pdaTransformation(){
@@ -137,31 +122,23 @@ public class Automaton{
 
         if(this.getFinalStates().size() == 0)
             aux = 0; //Automato por pilha vazia
-
         else
             aux = 1;  //Automato por estado final
 
-
         //caso o automato seja um automato por estado final
         if(aux == 1){
-            ConvertionService b = new ConvertionService(this);
+            ConversionService b = new ConversionService(this);
             return b.finalToEmpty();
-
         }
 
         //caso o automato seja um automato por pilha vazia
         else if(aux == 0){
-            ConvertionService b = new ConvertionService(this);
+            ConversionService b = new ConversionService(this);
             return b.emptyToFinal();
-
         }
-
-
 
         else
             return this;
-
-
     }
 
     public boolean isFinalState(String a){
@@ -171,11 +148,10 @@ public class Automaton{
             return true;
         }
         return false;
-
     }
 
     public int identifyType(){
-        int aux = -1;  //Variavel para saber qual o tipo do automato o qual estamos fazendo o processamento
+        int aux;  //Variavel para saber qual o tipo do automato o qual estamos fazendo o processamento
 
         if(this.getFinalStates().size() == 0)
             aux = 0; //Automato por pilha vazia
@@ -183,9 +159,7 @@ public class Automaton{
         else
             aux = 1;  //Automato por estado final
 
-        return aux; //
-
-
+        return aux;
     }
 
     @Override
@@ -200,7 +174,6 @@ public class Automaton{
             outputRules.append("\n");
         }
         outputRules.append("]");
-
 
         StringBuilder outputAlphabet = new StringBuilder();
         outputAlphabet.append("[");
@@ -228,7 +201,6 @@ public class Automaton{
             }
         }
 
-
         return "Q: " + states + ",\n" +
                 "\u03A3: " + outputAlphabet + ",\n" +
                 "\u0393: ["  + outputStackAlphabet + "],\n" +
@@ -238,40 +210,15 @@ public class Automaton{
                 "F: " + finalStates + "\n";
     }
 
-    public void validateSequence(String sequence) throws Exception {
-        for (int i = 0; i < sequence.length(); i++) {
-            boolean found = false;
-            for (int j = 0; j < alphabet.length(); j++) {
-                if (sequence.charAt(i) == alphabet.charAt(j)) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                throw new Exception("Elementos da cadeia devem pertencer ao alfabeto!");
-            }
-        }
-    }
-
-    public void changeFinalState(String a){
+    public void changeFinalState(String a) {
         //Limpa o antigo estado final
         this.clearFinalState();
 
         for (String state : this.states) {//Caso esse estado pertencer ao automato
             if (state.equalsIgnoreCase(a)) { //
                 this.finalStates.add(a);
-
                 break;
             }
-
-
         }
-
-
     }
-
-
-
 }
-
-
