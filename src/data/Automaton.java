@@ -151,7 +151,7 @@ public class Automaton{
     }
 
     public int identifyType(){
-        int aux = -1;  //Variavel para saber qual o tipo do automato o qual estamos fazendo o processamento
+        int aux;  //Variavel para saber qual o tipo do automato o qual estamos fazendo o processamento
 
         if(this.getFinalStates().size() == 0)
             aux = 0; //Automato por pilha vazia

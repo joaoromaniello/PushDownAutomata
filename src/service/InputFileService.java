@@ -38,23 +38,16 @@ public class InputFileService {
     private List<Automaton> parseFile(String absolutePath) throws IOException, ParseException {
 
         jsonField = (JSONObject) new JSONParser().parse(new FileReader(absolutePath));
-
         jsonArray = (JSONArray) jsonField.get("estados");
 
         List<String> states = parseArrayField(jsonArray);
-
         String alphabet = parseAlphabet();
-
         String stackAlphabet = parseStackAlphabet();
-
         String initialState = parseInitialState();
-
         String initialSymbol = parseInitialSymbol();
-
         List<Rule> AFNDRules = parseRules();
 
         jsonArray = (JSONArray) jsonField.get("estadosFinais");
-
         List<String> finalStates = parseArrayField(jsonArray);
 
         Automaton AutomatoTransformado = new Automaton(states, alphabet, AFNDRules, initialState, finalStates, stackAlphabet, initialSymbol);
@@ -64,21 +57,13 @@ public class InputFileService {
         //Set parser to original state
         {
             jsonArray = (JSONArray) jsonField.get("estados");
-
             states = parseArrayField(jsonArray);
-
             alphabet = parseAlphabet();
-
             stackAlphabet = parseStackAlphabet();
-
             initialState = parseInitialState();
-
             initialSymbol = parseInitialSymbol();
-
             AFNDRules = parseRules();
-
             jsonArray = (JSONArray) jsonField.get("estadosFinais");
-
             finalStates = parseArrayField(jsonArray);
         }
 
@@ -86,13 +71,10 @@ public class InputFileService {
 
         List<Automaton> automatos = new ArrayList<>();
 
-
         automatos.add(AutomatoOriginal);
         automatos.add(AutomatoTransformado);
 
         return automatos;
-
-
     }
 
     private List<String> parseArrayField(JSONArray jsonArray) {

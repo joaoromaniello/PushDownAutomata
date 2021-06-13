@@ -66,10 +66,6 @@ public class InitialView extends JFrame implements ActionListener {
                 Automaton automaton1 = automaton.get(0);
                 Automaton automaton2 = automaton.get(1);
 
-                PDAService pdaService = new PDAService(automaton1);
-
-                pdaService.getApplicableRules(automaton1.getInitialState(), automaton1, "00011");
-
                 new PDAStepView(automaton1, automaton2);
                 dispose();
             } catch (Exception e) {
