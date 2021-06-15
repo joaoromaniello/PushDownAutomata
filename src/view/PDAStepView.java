@@ -12,8 +12,13 @@ public class PDAStepView extends JFrame {
     JTextField palavra = new JTextField();
     JButton validate = new JButton("Validar");
     JButton changeAutomaton = new JButton("<<<<");
-
+    Automaton Automato1;
+    Automaton Automato2;
     public PDAStepView(Automaton aut1, Automaton aut2) {
+
+
+        this.Automato1 = aut1;
+        this.Automato2 = aut2;
 
         JLabel originalLabel;
         JLabel convertedLabel;
@@ -51,6 +56,7 @@ public class PDAStepView extends JFrame {
         JScrollPane ConvertedPane = new JScrollPane(buildTextArea(aut2.toString()));
         ConvertedPane.setBounds(500, 75, 470, 480);
         add(ConvertedPane);
+        setValidateButton();
     }
 
     void setupFrame() {
@@ -103,5 +109,20 @@ public class PDAStepView extends JFrame {
         textArea.setCaretPosition(0);
 
         return textArea;
+
+
+
     }
+
+    public void setValidateButton() {
+        validate.addActionListener(event -> {
+            try {
+                    new ResultView(Automato1,palavra.getText());
+
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(this, exception.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+    }
+
 }

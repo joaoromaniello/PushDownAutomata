@@ -39,8 +39,21 @@ public class Rule {
         return symbol = symbol;
     }
 
+    public String getStackSymbols() {
+        return StackSymbols;
+    }
     @Override
     public String toString() {
-        return "("+ sourceState + "," + symbol + "," + StackTop + ")" + " \u2192 " + "(" + targetState + "," + StackSymbols +")" ;
+        if(symbol == '_' && !(StackSymbols.equalsIgnoreCase("_")) )
+            return "("+ sourceState + "," + '\u025b' + "," + StackTop + ")" + " \u2192 " + "(" + targetState + "," + StackSymbols +")" ;
+
+        if(!(symbol == '_') && (StackSymbols.equalsIgnoreCase("_")) )
+            return "("+ sourceState + "," + symbol + "," + StackTop + ")" + " \u2192 " + "(" + targetState + "," + "\u025b" +")" ;
+
+        if(symbol == '_' && StackSymbols.equalsIgnoreCase("_") )
+            return "("+ sourceState + "," + '\u025b' + "," + StackTop + ")" + " \u2192 " + "(" + targetState + "," + "\u025b" +")" ;
+
+        else
+            return "("+ sourceState + "," + symbol + "," + StackTop + ")" + " \u2192 " + "(" + targetState + "," + StackSymbols +")" ;
     }
 }
