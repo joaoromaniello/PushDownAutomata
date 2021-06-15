@@ -1,6 +1,6 @@
 {
   "estados": ["q0", "q1", "q2"],
-  "alfabeto": "O1",
+  "alfabeto": "01",
   "alfabetoPilha" : "Z01",
   "simboloInicial" : "Z",
   "regras": [

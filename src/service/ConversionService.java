@@ -73,8 +73,8 @@ public class ConversionService {
         newAut.clearFinalState();
         newAut.changeInitialState(initialState);
 
-        for (int i = 0; i < newAut.getAlphabet().length(); i++) {
-            newAut.addRule(finalState, '_', finalState, "_", String.valueOf(newAut.getAlphabet().charAt(i)));
+        for (int i = 0; i < newAut.getStackAlphabet().length(); i++) {
+            newAut.addRule(finalState, '_', finalState, "_", String.valueOf(newAut.getStackAlphabet().charAt(i)));
         }
 
         return newAut;

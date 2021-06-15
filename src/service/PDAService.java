@@ -2,109 +2,68 @@ package service;
 
 import data.Automaton;
 import data.Rule;
-import jdk.swing.interop.SwingInterOpUtils;
 
-import javax.sound.midi.Sequence;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
-
-import static java.util.Collections.emptySet;
 
 public class PDAService {
 
     Automaton automaton;
-    Stack <String> pilha = new Stack();
-    Boolean acceptance;
+    String sequence;
 
     public PDAService(Automaton automaton){
         this.automaton = automaton;
-        pilha.push(String.valueOf(automaton.getInitialSymbols().charAt(0))); //Adiciona o simbolo inicial à pilha
-
     }
 
-    public void proccesSequence(String sequence,String actualState,Stack a,String baseNode,Stack baseStack,String baseSequence){
-        testarCadeia(0,sequence,pilha,automaton.getInitialState());
-
+    public void belongsToLanguage(String sequence){
+        this.sequence = sequence;
+        Stack<String> pilha = new Stack<>();
+        pilha.push(automaton.getInitialSymbols()); //Adiciona o simbolo inicial à pilha
+        System.out.println(processSequence(0,pilha,automaton.getInitialState()));
     }
 
-    public Boolean testarCadeia(int position, String cadeia, Stack <String> pilha,String currentState){
-
-        if(position == cadeia.length() && pilha.isEmpty())
+    public Boolean processSequence(int position, Stack <String> stack, String currentState){
+        if(position == sequence.length() && (stack.isEmpty() || currentState.equals(automaton.getFinalState())))
             return true;
 
-        if(pilha.isEmpty())
+        if(stack.isEmpty())
             return false;
 
-        String topoPilha = pilha.pop();
-
-        List <Rule> regras = getRules(currentState,cadeia.charAt(position),topoPilha);
-
-        for(Rule regra: regras){
-
-
-        }
-    }
-
-    public char readStackTop(Stack stack){
-
-       char a = (char) stack.pop();
-
-        stack.push(a);
-
-        return a;
-
-
-    }
-
-    public Rule getApplicableRule(String State,Automaton a,String sequence){
-
-        char symbol = sequence.charAt(0);
-        int aux = 0;
-        List<Rule> rules= new ArrayList<>();
-        for(int i =0 ; i < a.getRules().size() ; i++){
-            if(a.getRules().get(i).getSourceState().equals(State) &&  symbol == a.getRules().get(i).getSymbol() && String.valueOf(readStackTop(pilha)).equalsIgnoreCase(a.getRules().get(i).getStackTop()) ){ //Encontra regras que começam com o mesmo simbolo
-                rules.add(a.getRules().get(i));
-                aux = 1;
-                break;
+        String stackTop = stack.pop();
+        List <Rule> rules = getRules(currentState, '_', stackTop);
+        for(Rule rule: rules){
+            String targetState = rule.getTargetState();
+            String newStackSymbols = rule.getStackSymbols();
+            for (int i = newStackSymbols.length()-1; i >= 0; i--) {
+                if (newStackSymbols.charAt(i) != '_') {
+                    stack.push(String.valueOf(newStackSymbols.charAt(i)));
+                }
+            }
+            if (processSequence(position, stack, targetState)) {
+                return true;
             }
         }
 
-        if(aux == 1){
-            return rules.get(0);
+        if (position == sequence.length()) {
+            return false;
         }
 
-        else{
-            Rule regraZerada = new Rule(null,'@',null,null,null);
-            return regraZerada;
-
-        }
-
-    }
-
-    public Rule getApplicableTran(String State,Automaton a, String sequence){
-        char symbol = sequence.charAt(0);
-        int aux = 0;
-        List<Rule> rules= new ArrayList<>();
-        for(int i =0 ; i < a.getRules().size() ; i++){
-            if(a.getRules().get(i).getSourceState().equals(State)  && String.valueOf(readStackTop(pilha)).equalsIgnoreCase(a.getRules().get(i).getStackTop()) && String.valueOf(a.getRules().get(i).getSymbol()).equalsIgnoreCase("_")){ //Encontra regras de transição
-                rules.add(a.getRules().get(i));
-                aux = 1;
-                break;
+        rules = getRules(currentState, sequence.charAt(position), stackTop);
+        for(Rule rule: rules){
+            String targetState = rule.getTargetState();
+            String getStackSymbols = rule.getStackSymbols();
+            for (int i = getStackSymbols.length()-1; i >= 0; i--) {
+                if (getStackSymbols.charAt(i) != '_') {
+                    stack.push(String.valueOf(getStackSymbols.charAt(i)));
+                }
+            }
+            if (processSequence(position+1, stack, targetState)) {
+                return true;
             }
         }
-        if(aux == 1){
-            return rules.get(0);
-        }
 
-        else{
-            Rule regraZerada = new Rule(null,'@',null,null,null);
-            return regraZerada;
-
-        }
-
-
+        return false;
     }
 
     public List <Rule> getRules(String state, char symbol, String topo){
@@ -122,16 +81,4 @@ public class PDAService {
 
         return regras;
     }
-
-    public Stack getPdaStack(){
-
-        return pilha;
-    }
-
-    public Boolean getAcceptance() {
-
-    return acceptance;
-    }
-
-
 }

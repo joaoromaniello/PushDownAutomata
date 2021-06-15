@@ -14,6 +14,7 @@ public class PDAStepView extends JFrame {
     JButton changeAutomaton = new JButton("<<<<");
     Automaton Automato1;
     Automaton Automato2;
+
     public PDAStepView(Automaton aut1, Automaton aut2) {
 
 
@@ -109,15 +110,12 @@ public class PDAStepView extends JFrame {
         textArea.setCaretPosition(0);
 
         return textArea;
-
-
-
     }
 
     public void setValidateButton() {
         validate.addActionListener(event -> {
             try {
-                    new ResultView(Automato1,palavra.getText());
+                new ResultView(Automato2, palavra.getText());
 
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(this, exception.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

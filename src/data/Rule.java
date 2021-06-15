@@ -27,7 +27,7 @@ public class Rule {
         return symbol;
     }
 
-    public String getTargetStates() {
+    public String getTargetState() {
         return targetState;
     }
 

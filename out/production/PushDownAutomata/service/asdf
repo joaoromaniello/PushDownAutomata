@@ -1,0 +1,42 @@
+testarCadeia(posicaoCadeia,cadeia, pilha):
+    if(posicaoCadeia == cadeia.length && pilha.empty()) return true;
+    if(pilha.empty()) return false; //pilha vazia, mas nao consumiu a cadeia toda
+    topoPilha = pilha.topo();
+    pilha.pop();
+    //& = epsilon
+    possibilidades = transicoes[estadoAtual][{&, topoPilha}]; //movimento vazio
+    for(possibilidade in possibilidades){
+        estadoDestino = possibilidade[0];
+        novo_topo_pilha = possibilidade[1]; //ex: BA, empilha B em A
+
+        for(simbolo in reverse(novo_topo_pilha)){ //inverte o novo topo para empilhar na ordem certa
+            if(simbolo != '&') pilha.push(simbolo);
+        }
+
+        if(testarCadeia(posicaoCadeia, cadeia, pilha)) return true;
+
+        for(simbolo in reverse(novo_topo_pilha)){
+            if(simbolo != '&') pilha.pop(); //é preciso desempilhar os elementos que inseriu para testar as outras possibilidades
+        }
+    }
+    if(posicaoCadeia == cadeia.length) {
+        pilha.push(topoPilha); //reseta a pilha antes de quebrar a recursao (se a pilha for global/referencia)
+        return false; //ja consumiu a toda a cadeia e nao há mais movimentos vazios
+    }
+    simboloCadeia = cadeia[posicaoCadeia];
+    possibilidades = transicoes[estadoAtual][{simboloCadeia, topo}]; //consumindo a cadeia
+    for(possibilidade in possibilidades){
+        estadoDestino = possibilidade[0];
+        novo_topo_pilha = possibilidade[1]; //ex: BA, empilha B em A
+
+        for(simbolo in reverse(novo_topo_pilha)){ //inverte o novo topo para empilhar na ordem certa
+            if(simbolo != '&') pilha.push(simbolo);
+        }
+
+        if(testarCadeia(posicaoCadeia+1, cadeia, pilha)) return true;
+
+        for(simbolo in reverse(novo_topo_pilha)){
+            if(simbolo != '&') pilha.pop(); //é preciso desempilhar os elementos que inseriu para testar as outras possibilidades
+        }
+    }
+    return false; //nenhuma possibilide deu certo até aqui
