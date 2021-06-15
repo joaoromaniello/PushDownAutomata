@@ -15,6 +15,8 @@ Pushdown automatas are used in theories about what can be computed by machines. 
 ✅ Being able to accept or reject any given word <br />
 (100% done)
 
+# HOW TO EXECUTE
+
 Inside this project you will find 4 PDA´s inside the "input" folder.
 In case you wanna test your own automaton, just insert it using the following JSON design:
 
@@ -41,6 +43,9 @@ In case you wanna test your own automaton, just insert it using the following JS
 } <br />
 
 In casr you wanna add an ε transiction, just use the "_" (Underline) character. 
+
+
+After setting up your automaton, just execute and select it from the initial view.
 
 
 
