@@ -1,6 +1,7 @@
 package view;
 
 import data.Automaton;
+import service.PDAService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,21 +13,23 @@ public class PDAStepView extends JFrame {
     JTextField palavra = new JTextField();
     JButton validate = new JButton("Validar");
     JButton changeAutomaton = new JButton("<<<<");
-    Automaton Automato1;
-    Automaton Automato2;
+    Automaton emptyAutomaton;
+    Automaton finalStateAutomaton;
 
     public PDAStepView(Automaton aut1, Automaton aut2) {
 
-        this.Automato1 = aut1;
-        this.Automato2 = aut2;
 
         JLabel originalLabel;
         JLabel convertedLabel;
 
         if (aut1.identifyType() == 0) {
+            this.emptyAutomaton = aut1;
+            this.finalStateAutomaton = aut2;
             originalLabel = new JLabel("PDA Original (Por pilha vazia)");
             convertedLabel = new JLabel("PDA Convertido (Por estado final)");
         } else {
+            this.emptyAutomaton = aut2;
+            this.finalStateAutomaton = aut1;
             convertedLabel = new JLabel("PDA Convertido (Por pilha vazia)");
             originalLabel = new JLabel("PDA Original (Por estado final)");
         }
@@ -114,13 +117,19 @@ public class PDAStepView extends JFrame {
     public void setValidateButton() {
         validate.addActionListener(event -> {
             try {
+                PDAService emptyAutomatonProcessor = new PDAService(emptyAutomaton);
+                if(emptyAutomatonProcessor.belongsToLanguage(palavra.getText())) {
+                    JOptionPane.showMessageDialog(this, "Cadeia foi Aceita! :D", "Autômato por Pilha Vazia", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cadeia foi Negada! D:", "Autômato por Pilha Vazia", JOptionPane.WARNING_MESSAGE);
+                }
 
-
-                System.out.print("APN: ");
-                new ResultView(Automato2, palavra.getText());
-                System.out.print("APV: ");
-                new ResultView(Automato1, palavra.getText());
-                System.out.println();
+                PDAService finalStateAutomatonProcessor = new PDAService(finalStateAutomaton);
+                if(finalStateAutomatonProcessor.belongsToLanguage(palavra.getText())) {
+                    JOptionPane.showMessageDialog(this, "Cadeia foi Aceita! :D", "Autômato por Estado Final", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cadeia foi Negada! D:", "Autômato por Estado Final", JOptionPane.WARNING_MESSAGE);
+                }
 
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(this, exception.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
