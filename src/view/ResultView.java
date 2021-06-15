@@ -23,7 +23,7 @@ public class ResultView extends JFrame {
         automatonProcc = new PDAService(aut);
 
         setupFrame();
-        automatonProcc.belongsToLanguage(palavra);
+        System.out.println(automatonProcc.belongsToLanguage(palavra));
     }
 
 

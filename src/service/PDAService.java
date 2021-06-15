@@ -16,15 +16,15 @@ public class PDAService {
         this.automaton = automaton;
     }
 
-    public void belongsToLanguage(String sequence){
+    public Boolean belongsToLanguage(String sequence){
         this.sequence = sequence;
         Stack<String> pilha = new Stack<>();
         pilha.push(automaton.getInitialSymbols()); //Adiciona o simbolo inicial à pilha
-        System.out.println(processSequence(0,pilha,automaton.getInitialState()));
+        return processSequence(0,pilha,automaton.getInitialState());
     }
 
     public Boolean processSequence(int position, Stack <String> stack, String currentState){
-        if(position == sequence.length() && (stack.isEmpty() || currentState.equals(automaton.getFinalState())))
+        if(position == sequence.length() && (stack.isEmpty() || automaton.getFinalStates().contains(currentState)))
             return true;
 
         if(stack.isEmpty())

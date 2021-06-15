@@ -115,7 +115,11 @@ public class PDAStepView extends JFrame {
     public void setValidateButton() {
         validate.addActionListener(event -> {
             try {
+                System.out.print("APN: ");
                 new ResultView(Automato2, palavra.getText());
+                System.out.print("APV: ");
+                new ResultView(Automato1, palavra.getText());
+                System.out.println();
 
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(this, exception.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

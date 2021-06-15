@@ -50,10 +50,6 @@ public class Automaton{
 
     }
 
-    public String getFinalState(){
-        return finalStates.toString();
-    }
-
     public void changeInitialState(String newState){
 
         for (String state : this.states) {
