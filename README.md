@@ -13,3 +13,7 @@ Pushdown automatas are used in theories about what can be computed by machines. 
  --->  ✅ FinalState to EmptyStack <br />
  --->  ✅ EmptyStack to FinalState <br />
 ✅ Being able to accept or reject any given word <br />
+
+
+
+
