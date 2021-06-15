@@ -17,7 +17,6 @@ public class PDAStepView extends JFrame {
 
     public PDAStepView(Automaton aut1, Automaton aut2) {
 
-
         this.Automato1 = aut1;
         this.Automato2 = aut2;
 
@@ -115,6 +114,8 @@ public class PDAStepView extends JFrame {
     public void setValidateButton() {
         validate.addActionListener(event -> {
             try {
+
+
                 System.out.print("APN: ");
                 new ResultView(Automato2, palavra.getText());
                 System.out.print("APV: ");

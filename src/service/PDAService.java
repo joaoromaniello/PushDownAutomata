@@ -31,13 +31,16 @@ public class PDAService {
             return false;
 
         String stackTop = currentStack.pop();
+        //Aplica regras com transições vazias recursivamente sem consumir cadeia
         if (searchAndApplyRuleBySymbol(position, currentStack, currentState, stackTop,'_'))
             return true;
 
+        //Consumiu toda a cadeia e não há mais movimentos. Evita loop infinito
         if (position == sequence.length()) {
             return false;
         }
 
+        //Aplica regras com transições do elemento da cadeia recursivamente, consumindo-a
         if (searchAndApplyRuleBySymbol(position + 1, currentStack, currentState, stackTop, sequence.charAt(position)))
             return true;
 
@@ -45,9 +48,12 @@ public class PDAService {
     }
 
     private boolean searchAndApplyRuleBySymbol(int position, Stack<String> stack, String currentState, String stackTop, char symbol) {
+        //Busca regra que é aplicável no estado atual do processamento
         List<Rule> applicableRules = getApplicableRules(currentState, symbol, stackTop);
         for (Rule rule : applicableRules) {
-            applyRule(stack, rule);
+            //Atualiza pilha com pilha resultante da transição
+            pushTargetStack(stack, rule.getTargetStack());
+            //Chama recursivamente o processamento e propaga a resposta booleana do caso base
             if (processSequence(position, stack, rule.getTargetState())) {
                 return true;
             }
@@ -55,8 +61,8 @@ public class PDAService {
         return false;
     }
 
-    private void applyRule(Stack<String> stack, Rule rule) {
-        String newStackSymbols = rule.getTargetStack();
+    private void pushTargetStack(Stack<String> stack, String newStackSymbols) {
+        //Atualiza pilha atual do processamento dando push na pilha da regra de forma inversa
         for (int i = newStackSymbols.length() - 1; i >= 0; i--) {
             if (newStackSymbols.charAt(i) != '_') {
                 stack.push(String.valueOf(newStackSymbols.charAt(i)));
@@ -66,16 +72,16 @@ public class PDAService {
 
     public List<Rule> getApplicableRules(String state, char symbol, String top) {
 
-        List<Rule> regras = new ArrayList<>();
-
+        List<Rule> applicableRules = new ArrayList<>();
+        //Encontra lista de todas as regras aplicáveis do momento atual do processamento
         for (Rule rule: automaton.getRules()) {
             if (rule.getSourceState().equalsIgnoreCase(state) &&
                 rule.getSymbol() == symbol &&
                 rule.getStackTop().equalsIgnoreCase(top)
             ) {
-                regras.add(rule);
+                applicableRules.add(rule);
             }
         }
-        return regras;
+        return applicableRules;
     }
 }
