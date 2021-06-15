@@ -2,7 +2,8 @@
   #PUSHDOWN AUTOMATA
 </h1>
 
-<img src=“https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Pushdown-overview.svg/340px-Pushdown-overview.svg.png7”>
+
+![image](https://user-images.githubusercontent.com/36866624/122078980-5ef77000-cdd3-11eb-933e-78d1b71c487b.png)
 
 
 
