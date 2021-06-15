@@ -40,7 +40,7 @@ In case you wanna test your own automaton, just insert it using the following JS
   "estadosFinais": [final states] <br />
 } <br />
 
-In caso you wanna add an ε transiction, just use the "_" (Underline) character. 
+In casr you wanna add an ε transiction, just use the "_" (Underline) character. 
 
 
 
