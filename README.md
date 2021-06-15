@@ -2,7 +2,7 @@
   #PUSHDOWN AUTOMATA
 </h1>
 
-![image](https://user-images.githubusercontent.com/36866624/122079212-90703b80-cdd3-11eb-90bc-0c4804a04178.png)
+![image](https://user-images.githubusercontent.com/36866624/122079295-a7af2900-cdd3-11eb-989c-63318eeb84c7.png)
 
 Pushdown automatas are used in theories about what can be computed by machines. They are more capable than finite-state machines but less capable than Turing machines. Deterministic pushdown automata can recognize all deterministic context-free languages while nondeterministic ones can recognize all context-free languages, with the former often used in parser design.
 
