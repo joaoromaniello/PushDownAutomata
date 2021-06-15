@@ -15,6 +15,34 @@ Pushdown automatas are used in theories about what can be computed by machines. 
 ✅ Being able to accept or reject any given word <br />
 (100% done)
 
+Inside this project you will find 4 PDA´s inside the "input" folder.
+In case you wanna test your own automaton, just insert it using the following JSON design:
+
+{
+  "estados": ["your states here],
+  "alfabeto": "a string with the alphabet characters",
+  "alfabetoPilha" : "a string with all the stack alphabet characters",
+  "simboloInicial" : "stack initial symbol",
+  "regras": [ 
+    {
+      "estadoPartida": "q0",
+      "simbolo": "_",
+      "topo": "Z",
+      "estadosDestino": "q0",
+      "empilha": "_"
+    },
+    .
+    .
+    .
+    //Rules
+  ],
+  "estadoInicial": "initial state",
+  "estadosFinais": [final states]
+}
+
+In caso you wanna add an ε transiction, just use the "_" (Underline) character. 
+
+
 
 
 
