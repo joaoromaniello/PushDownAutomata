@@ -11,21 +11,19 @@ import static javax.swing.SwingConstants.CENTER;
 public class ResultView extends JFrame {
 
     Automaton automato;
-    String palavra;
+    String word;
     JPanel resultPane = new JPanel();
-    JLabel word = new JLabel();
-    PDAService automatonProcc;
+    JLabel wordLabel = new JLabel();
+    PDAService pdaService;
 
-
-    public ResultView(Automaton aut, String Word) {
+    public ResultView(Automaton aut, String wordLabel) {
         this.automato = aut;
-        this.palavra = Word;
-        automatonProcc = new PDAService(aut);
+        this.word = wordLabel;
+        pdaService = new PDAService(aut);
 
         setupFrame();
-        System.out.println(automatonProcc.belongsToLanguage(palavra));
+        System.out.println(pdaService.belongsToLanguage(word));
     }
-
 
     void setupFrame() {
         setLayout(null);
@@ -36,15 +34,14 @@ public class ResultView extends JFrame {
         setLocation(460, 140);
         resultPane.setBounds(50, 100, 500, 350);
         resultPane.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 128)));
-        word.setText(palavra);
-        word.setFont(new Font(null, Font.BOLD, 30));
-        word.setBounds(250, 10, 300, 80);
+        wordLabel.setText(word);
+        wordLabel.setFont(new Font(null, Font.BOLD, 30));
+        wordLabel.setBounds(250, 10, 300, 80);
         JLabel teste = new JLabel(automato.toString());
         add(teste);
-        add(word);
+        add(wordLabel);
         add(resultPane);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
     }
 
     private void setupTitle() {
@@ -54,5 +51,4 @@ public class ResultView extends JFrame {
         titleLabel.setBounds(300, 20, 400, 20);
         add(titleLabel);
     }
-
 }

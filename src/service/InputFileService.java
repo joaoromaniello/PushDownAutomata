@@ -1,11 +1,11 @@
 package service;
 
+import data.Automaton;
 import data.Rule;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import data.Automaton;
 
 import javax.swing.*;
 import java.io.File;
@@ -18,7 +18,6 @@ public class InputFileService {
 
     JSONArray jsonArray;
     JSONObject jsonField;
-
 
     public List<Automaton> parseAndConvertJSON() throws Exception {
         File workingDirectory = new File(System.getProperty("user.dir"));

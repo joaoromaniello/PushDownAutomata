@@ -12,7 +12,7 @@ public class ConversionService {
         this.automato = a;
     }
 
-    public Automaton emptyToFinal() {
+    public void emptyToFinal() {
 
         Automaton newAut = automato;
 
@@ -41,11 +41,9 @@ public class ConversionService {
 
         //Cria o estado final sendo o estado criado
         newAut.changeFinalState(finalState);
-
-        return newAut;
     }
 
-    public Automaton finalToEmpty() {
+    public void finalToEmpty() {
 
         Automaton newAut = automato;
 
@@ -76,7 +74,5 @@ public class ConversionService {
         for (int i = 0; i < newAut.getStackAlphabet().length(); i++) {
             newAut.addRule(finalState, '_', finalState, "_", String.valueOf(newAut.getStackAlphabet().charAt(i)));
         }
-
-        return newAut;
     }
 }

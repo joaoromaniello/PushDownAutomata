@@ -2,7 +2,6 @@ package view;
 
 import data.Automaton;
 import service.InputFileService;
-import service.PDAService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,10 +18,7 @@ public class InitialView extends JFrame implements ActionListener {
     JButton openFileButton = new JButton("Arquivo...");
     JButton aboutButton = new JButton("Sobre...");
 
-    //AFNDService automatonService;
-
     public InitialView() {
-        //this.automatonService = new AFNDService();
         setupFrame();
         setupTitle();
         setupFileButton();
@@ -89,7 +85,7 @@ public class InitialView extends JFrame implements ActionListener {
                             "   ]\n" +
                             "}\n\n" +
                             "Posteriormente, basta adicionar as cadeias que deseja testar, tendo a possibilidade de" +
-                            " checar os passos\nque o automato seguiu junto à pilha. " +
+                            " checar o veredito\nsobre sua aceitação na linguagem representada pelo autômato." +
                             "\n\n",
                     "Sobre o programa", JOptionPane.INFORMATION_MESSAGE);
         }
