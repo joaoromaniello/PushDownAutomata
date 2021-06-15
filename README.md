@@ -42,7 +42,7 @@ In case you wanna test your own automaton, just insert it using the following JS
   "estadosFinais": [final states] <br />
 } <br />
 
-In casr you wanna add an ε transiction, just use the "_" (Underline) character. 
+In case you wanna add an ε transiction, just use the "_" (Underline) character. 
 
 
 After setting up your automaton, just execute and select it from the initial view.
