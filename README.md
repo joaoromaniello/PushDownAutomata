@@ -17,7 +17,7 @@ Pushdown automatas are used in theories about what can be computed by machines. 
 
 # HOW TO EXECUTE
 
-Inside this project you will find 4 PDA´s inside the "input" folder.
+In this project you will find 4 pre made PDA´s inside the "input" folder.
 In case you wanna test your own automaton, just insert it using the following JSON design:
 
 ```
