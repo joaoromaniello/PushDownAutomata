@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class InputFileService {
@@ -49,31 +50,13 @@ public class InputFileService {
         jsonArray = (JSONArray) jsonField.get("estadosFinais");
         List<String> finalStates = parseArrayField(jsonArray);
 
-        Automaton AutomatoTransformado = new Automaton(states, alphabet, AFNDRules, initialState, finalStates, stackAlphabet, initialSymbol);
 
-        AutomatoTransformado.pdaTransformation();
+        Automaton automatoOriginal = new Automaton(states, alphabet, AFNDRules, initialState, finalStates, stackAlphabet, initialSymbol);
 
-        //Set parser to original state
-        {
-            jsonArray = (JSONArray) jsonField.get("estados");
-            states = parseArrayField(jsonArray);
-            alphabet = parseAlphabet();
-            stackAlphabet = parseStackAlphabet();
-            initialState = parseInitialState();
-            initialSymbol = parseInitialSymbol();
-            AFNDRules = parseRules();
-            jsonArray = (JSONArray) jsonField.get("estadosFinais");
-            finalStates = parseArrayField(jsonArray);
-        }
+        Automaton automatoTransformado = new Automaton(new ArrayList<>(states), String.valueOf(alphabet), new ArrayList<>(AFNDRules), String.valueOf(initialState), new ArrayList<>(finalStates), String.valueOf(stackAlphabet), String.valueOf(initialSymbol));
+        automatoOriginal.pdaTransformation();
 
-        Automaton AutomatoOriginal = new Automaton(states, alphabet, AFNDRules, initialState, finalStates, stackAlphabet, initialSymbol);
-
-        List<Automaton> automatos = new ArrayList<>();
-
-        automatos.add(AutomatoOriginal);
-        automatos.add(AutomatoTransformado);
-
-        return automatos;
+        return Arrays.asList(automatoTransformado, automatoOriginal);
     }
 
     private List<String> parseArrayField(JSONArray jsonArray) {
