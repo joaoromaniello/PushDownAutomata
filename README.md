@@ -20,27 +20,29 @@ Pushdown automatas are used in theories about what can be computed by machines. 
 Inside this project you will find 4 PDA´s inside the "input" folder.
 In case you wanna test your own automaton, just insert it using the following JSON design:
 
-{ <br />
-  "estados": ["your states here],   <br />
-  "alfabeto": "a string with the alphabet characters",  <br />
-  "alfabetoPilha" : "a string with all the stack alphabet characters",  <br />
-  "simboloInicial" : "stack initial symbol",  <br />
-  "regras": [   <br />
+```
+{
+  "estados": ["your states here],  
+  "alfabeto": "a string with the alphabet characters", 
+  "alfabetoPilha" : "a string with all the stack alphabet characters", 
+  "simboloInicial" : "stack initial symbol", 
+  "regras": [  
     {
-      "estadoPartida": "q0",  <br />
-      "simbolo": "_", <br />
-      "topo": "Z",  <br />
-      "estadosDestino": "q0", <br />
-      "empilha": "_"  <br />
-    },  <br />
-    .   <br />
-    . <br />
-    . <br />
-    //Rules <br />
-  ],  <br />
-  "estadoInicial": "initial state", <br />
-  "estadosFinais": [final states] <br />
-} <br />
+      "estadoPartida": "q0", 
+      "simbolo": "_",
+      "topo": "Z", 
+      "estadosDestino": "q0", 
+      "empilha": "_"  
+    },  
+    .  
+    . 
+    .
+    //Rules 
+  ],  
+  "estadoInicial": "initial state", 
+  "estadosFinais": [final states] 
+} 
+```
 
 In case you wanna add an ε transiction, just use the "_" (Underline) character. 
 
