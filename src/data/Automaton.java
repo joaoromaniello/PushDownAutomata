@@ -104,23 +104,15 @@ public class Automaton {
     }
 
     public void pdaTransformation() {
+        ConversionService conversionService = new ConversionService(this);
 
-        int aux = -1;  //Variavel para saber qual o tipo do automato o qual estamos fazendo o processamento
-
-        if (this.getFinalStates().size() == 0)
-            aux = 0; //Automato por pilha vazia
-        else
-            aux = 1;  //Automato por estado final
-
-        ConversionService b = new ConversionService(this);
-
-        //caso o automato seja um automato por estado final
-        if (aux == 1) {
-            b.finalToEmpty();
-        }
         //caso o automato seja um automato por pilha vazia
+        if (this.getFinalStates().size() == 0) {
+            conversionService.emptyToFinal();
+        }
+        //caso o automato seja um automato por estado final
         else {
-            b.emptyToFinal();
+            conversionService.finalToEmpty();
         }
     }
 

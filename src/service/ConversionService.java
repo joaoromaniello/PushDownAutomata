@@ -59,20 +59,19 @@ public class ConversionService {
         String finalState = "qF";
         List<String> finalStates = newAut.getFinalStates();
 
-        //Adiciona transições epsilon de todos os estados finais
-        //Para o novo "estado final"
-
+        //Adiciona transições epsilon de todos os estados finais para o novo estado final
         for (int i = 0; i < finalStates.size(); i++) {
             for (int j = 0; j < newAut.getStackAlphabetSize(); j++) {
                 newAut.addRule(finalStates.get(i), '_', finalState, "_", String.valueOf(newAut.getStackAlphabet().charAt(j)));
             }
         }
 
-        newAut.clearFinalState();
-        newAut.changeInitialState(initialState);
-
+        //Adiciono transições epsilon do estado final para ele mesmo com qualquer simbolo de topo de pilha, desempilhando
         for (int i = 0; i < newAut.getStackAlphabet().length(); i++) {
             newAut.addRule(finalState, '_', finalState, "_", String.valueOf(newAut.getStackAlphabet().charAt(i)));
         }
+
+        newAut.changeInitialState(initialState);
+        newAut.clearFinalState();
     }
 }

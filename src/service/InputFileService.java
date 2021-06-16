@@ -46,17 +46,15 @@ public class InputFileService {
         String initialState = parseInitialState();
         String initialSymbol = parseInitialSymbol();
         List<Rule> AFNDRules = parseRules();
-
         jsonArray = (JSONArray) jsonField.get("estadosFinais");
         List<String> finalStates = parseArrayField(jsonArray);
-
 
         Automaton automatoOriginal = new Automaton(states, alphabet, AFNDRules, initialState, finalStates, stackAlphabet, initialSymbol);
 
         Automaton automatoTransformado = new Automaton(new ArrayList<>(states), String.valueOf(alphabet), new ArrayList<>(AFNDRules), String.valueOf(initialState), new ArrayList<>(finalStates), String.valueOf(stackAlphabet), String.valueOf(initialSymbol));
-        automatoOriginal.pdaTransformation();
+        automatoTransformado.pdaTransformation();
 
-        return Arrays.asList(automatoTransformado, automatoOriginal);
+        return Arrays.asList(automatoOriginal, automatoTransformado);
     }
 
     private List<String> parseArrayField(JSONArray jsonArray) {
@@ -81,19 +79,12 @@ public class InputFileService {
         jsonArray = (JSONArray) jsonField.get("regras");
 
         for (Object rule : jsonArray) {
-
             JSONObject jsonRule = (JSONObject) rule;
 
             String sourceState = (String) jsonRule.get("estadoPartida");
-
             String symbol = (String) jsonRule.get("simbolo");
-
-            String targets = (String) jsonRule.get("estadosDestino");
-
             String StackSymbol = (String) jsonRule.get("empilha");
-
             String StackTop = (String) jsonRule.get("topo");
-
             String targetState = (String) jsonRule.get("estadosDestino");
 
             PDARules.add(new Rule(sourceState, symbol.charAt(0), targetState, StackSymbol, StackTop));
