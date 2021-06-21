@@ -1,5 +1,5 @@
 <h1 align="center">
-  #PUSHDOWN AUTOMATA (PDA)
+  # PUSHDOWN AUTOMATA (PDA)
 </h1>
 
 ![image](https://user-images.githubusercontent.com/36866624/122079295-a7af2900-cdd3-11eb-989c-63318eeb84c7.png)
