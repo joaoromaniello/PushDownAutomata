@@ -10,9 +10,9 @@ Pushdown automatas are used in theories about what can be computed by machines. 
 # PROJECT GOALS
 
 ✅ Be able to perform PDA acceptance method conversion  <br />
- --->  ✅ FinalState to EmptyStack <br />
- --->  ✅ EmptyStack to FinalState <br />
-✅ Being able to accept or reject any given word <br />
+ --->  FinalState to EmptyStack <br />
+ --->  EmptyStack to FinalState <br />
+✅ Be able to accept or reject any given word <br />
 (100% done)
 
 # HOW TO EXECUTE
